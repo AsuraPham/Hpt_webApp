@@ -1,0 +1,128 @@
+.btn-custom{
+  color: #fff;
+  border-radius: 5px;
+  padding: 8px 30px;
+  &.left {
+    span {
+      float: right;
+      margin-right: 8px;
+    }
+    i {
+      margin-left: 8px;
+    }
+  }
+  &.no-icon {
+    span {
+      margin-left: 32px;
+      margin-right: 32px;
+    }
+  }
+}
+.btn-custom.button-default{
+  background-color: #cccc;
+  border: 1px solid #cccc;
+  outline: none;
+}
+
+.btn-custom.button-success {
+  background-color: #36B87A;
+  border: 1px solid #36B87A;
+  outline: none;
+}
+
+.btn-custom.button-info {
+  background-color: #145f7e;
+  border: 1px solid #145f7e;
+  outline: none;
+}
+
+.btn-custom.button-warning {
+  background-color: #FDBA2E;
+  border: 1px solid #FDBA2E;
+  outline: none;
+}
+
+.btn-custom.button-danger {
+  background-color: #E32701;
+  border: 1px solid #E32701;
+  outline: none;
+}
+
+.btn-custom.button-cancel {
+  background-color: #66656A;
+  border: 1px solid #66656A;
+  outline: none;
+}
+.btn-custom.has-only-icon{
+  padding: 6px 3px !important;
+}
+.button-icon{
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+.btn-icon-add{
+  background: url("../../../assets/add.svg") no-repeat center;
+  background-size: contain;
+  margin-bottom: -2px;
+}
+.btn-icon-edit{
+  background: url("../../../assets/new-file.svg") no-repeat center;
+  background-size: contain;
+}
+
+.btn-icon-delete {
+  background: url("../../../assets/trash.svg") no-repeat center;
+  background-size: contain;
+}
+
+.btn-icon-approve {
+  background: url("../../../assets/correct.svg") no-repeat center;
+  background-size: contain;
+}
+
+.btn-icon-reject {
+  background: url("../../../assets/cancel.svg") no-repeat center;
+  background-size: contain;
+}
+
+.btn-icon-detail {
+  background: url("../../../assets/file.svg") no-repeat center;
+  background-size: contain;
+}
+.btn-icon-add{
+  background: url("../../../assets/add.svg") no-repeat center;
+  background-size: contain;
+}
+.btn-icon-minus{
+  background: url("../../../assets/substract.svg") no-repeat center;
+  background-size: contain;
+}
+.btn-icon-quiz-send{
+  background: url("../../../assets/mail-send.svg") no-repeat center;
+  background-size: contain;
+  margin-bottom: -4px;
+  width: 20px;
+  height: 20px;
+}
+.btn-icon-arrow{
+  display: inline-block;
+  vertical-align: middle;
+  background: url("../../../assets/right-arrow.png") no-repeat center;
+  background-size: contain;
+}
+.btn-icon-flag{
+  display: inline-block;
+  vertical-align: middle;
+  background: url("../../../assets/flag.svg") no-repeat center;
+  background-size: contain;
+}
+.btn-icon-view-cv{
+  display: inline-block;
+  vertical-align: middle;
+  background: url("../../../assets/cv.svg") no-repeat center;
+  background-size: contain;
+}
+.icon-show-right{
+  float: left;
+}
