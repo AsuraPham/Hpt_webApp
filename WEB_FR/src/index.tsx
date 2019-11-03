@@ -5,7 +5,6 @@ import configureStore from "./configureStore";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "react-router-redux";
 import createBrowserHistory from "history/createBrowserHistory";
-import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "font-awesome/css/font-awesome.min.css";

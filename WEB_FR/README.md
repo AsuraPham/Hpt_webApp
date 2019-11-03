@@ -1,6 +1,4 @@
 
-# WAG-ADMIN
-
 + nodejs: version >= 8.12.0
 
 + if nodejs > =10.x.x
