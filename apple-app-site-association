@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+    {
+      "appID": "F9FJAC72SV.com.netcompany.NC-Screener",
+      "paths": ["*"]
+    }
+    ]
+  }
+}
