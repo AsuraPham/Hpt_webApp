@@ -18,4 +18,8 @@ export default class MedicineServices {
     }
     return ajax.getJSON(`${api}/Medicine?${param}`, headers());
   }
+
+  static deleteMedicine(medicineId: any) {
+    return ajax.delete(`${api}/Medicine/${medicineId}`, headers());
+  }
 }

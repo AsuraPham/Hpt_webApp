@@ -20,6 +20,10 @@ export default class DoctorServices {
     return ajax.getJSON(`${api}/Doctor?${param}`, headers());
   }
 
+  static deleteDoctor(doctorId: any) {
+    return ajax.delete(`${api}/Doctor/${doctorId}`, headers());
+  }
+
   getListDepartment() {
     return ajax.getJSON(`${api}/Department/get-list`, headers());
   }

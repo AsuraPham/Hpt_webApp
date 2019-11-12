@@ -18,6 +18,7 @@ interface Props extends MedicineState {
   isLoading?: boolean;
   isLoadingCreate?: boolean;
   history?: any;
+  isOpenModalDelete: boolean;
 }
 
 class Medicine extends React.Component<Props, any> {
@@ -82,7 +83,8 @@ class Medicine extends React.Component<Props, any> {
       medicines,
       isLoadingCreate,
       isLoading,
-      actions
+      actions,
+      isOpenModalDelete
     } = this.props;
     return (
       <div>
@@ -120,6 +122,7 @@ class Medicine extends React.Component<Props, any> {
               onSearch={this.onSearch}
               medicines={medicines}
               isLoading={isLoading}
+              isOpenModalDelete={isOpenModalDelete}
             />
           </div>
         </Spin>

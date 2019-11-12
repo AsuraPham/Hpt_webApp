@@ -3,7 +3,7 @@ import { toastr } from "react-redux-toastr";
 
 import { handleApiError } from "../../common/handleApiError";
 import { GetPagination } from "../../common/models/Pagination";
-import { CREATE_SUCCESS, CREATE_FAIL } from "../../common/const/message";
+import { CREATE_SUCCESS, CREATE_FAIL, DELETE_SUCCESS } from "../../common/const/message";
 import CommonResponse from "../../common/models/CommonResponse";
 import { PAGE_SIZE } from "../../common/Constants";
 
@@ -47,8 +47,22 @@ const createDepartmentEpic = (action$: any) =>
       .catch(error => handleApiError(error));
   });
 
+const deleteDepartmentEpic = (action$: any) => action$.ofType(actionType.DELETE_DEPARTMENT).mergeMap((action: any) => {
+  let request = action.payload;
+  return DepartmentService.deleteDepartment(request)
+    .map((result: any) => {
+      let response = result.response;
+      if (!response.hasErrors) {
+        toastr.success("", DELETE_SUCCESS);
+        return departmentAction.deleteDepartmentSuccess(response);
+      } else {
+        return departmentAction.deleteDepartmentFail(response);
+      }
+    }).catch(error => handleApiError(error));
+});
+
 const saveSuccessEpic = (action$: any, store) =>
-  action$.ofType(actionType.CREATE_DEPARTMENT_SUCCESS).mergeMap(() => {
+  action$.ofType(actionType.CREATE_DEPARTMENT_SUCCESS, actionType.DELETE_DEPARTMENT_SUCCESS).mergeMap(() => {
     let state: DepartmentState = store.getState().departmentState;
     const searchReq = {
       pageIndex: state.pagination ? state.pagination.current : 1,
@@ -61,5 +75,6 @@ const saveSuccessEpic = (action$: any, store) =>
 export const deparmentEpics = combineEpics(
   createDepartmentEpic,
   getDepartmentListEpic,
+  deleteDepartmentEpic,
   saveSuccessEpic
 );

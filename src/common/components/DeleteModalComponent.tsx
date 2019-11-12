@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { Modal, Spin } from 'antd';
-import { BE_WANT } from '../const/label';
+import * as React from "react";
+import { Modal, Spin } from "antd";
+
 interface Prop {
     isOpenModalDelete: boolean;
     closeModal?: any;
@@ -15,19 +15,18 @@ export const DeleteModalComponent = (props: Prop) => {
     };
     return (
         <Modal
-            okText='Delete'
-            className='modal-del'
+            okText="Delete"
+            className="modal-del"
             onCancel={closeModal}
             style={{ top: 166 }}
             visible={props.isOpenModalDelete}
             onOk={props.delete}
-            bodyStyle={{ textAlign: 'center', paddingTop: 54 }}
+            bodyStyle={{ textAlign: "center", paddingTop: 54 }}
             closable={false}
             destroyOnClose={true}
         >
-            <Spin size='large' spinning={props.isLoading}>
-                <h5 className='txt-title' >{props.message}</h5>
-                <h5 className='txt-title'>{BE_WANT}</h5>
+            <Spin size="large" spinning={props.isLoading}>
+                <h5 className="txt-title" >{props.message}</h5>
             </Spin>
         </Modal>
     );

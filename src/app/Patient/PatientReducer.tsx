@@ -16,6 +16,7 @@ const initialState: PatientState = {
     pageIndex: 1,
     pageSize: PAGE_SIZE
   },
+  isOpenModalDelete: false,
   patients: []
 };
 export default createReducer(initialState, {
@@ -46,6 +47,18 @@ export default createReducer(initialState, {
   [actionType.CREATE_PATIENT_FAIL]: (state: PatientState) => {
     return { ...state, isLoading: false };
   },
+
+  // delete
+  [actionType.DELETE_PATIENT]: (state: PatientState) => {
+    return { ...state, isLoading: false };
+  },
+  [actionType.DELETE_PATIENT_SUCCESS]: (state: PatientState) => {
+    return { ...state, isLoading: false, isOpenModalDelete: false };
+  },
+  [actionType.DELETE_PATIENT_FAIL]: (state: PatientState) => {
+    return { ...state, isLoading: false };
+  },
+
   [actionType.PATIENT_OPEN_CLOSE_MODAL]: (state: PatientState, payload) => {
     return { ...state, ...payload };
   },

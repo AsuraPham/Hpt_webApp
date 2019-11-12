@@ -31,3 +31,7 @@ export const openCloseModel = (payload: any) => ({
   type: actionType.PATIENT_OPEN_CLOSE_MODAL,
   payload
 });
+
+export const deletePatient = (payload: any) => ({ type: actionType.DELETE_PATIENT, payload });
+export const deletePatientSuccess = (payload: any) => ({ type: actionType.DELETE_PATIENT_SUCCESS, payload });
+export const deletePatientFail = (payload: any) => ({ type: actionType.DELETE_PATIENT_FAIL, payload });

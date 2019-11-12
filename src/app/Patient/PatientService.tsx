@@ -19,4 +19,8 @@ export default class PatientServices {
     }
     return ajax.getJSON(`${api}/Patient?${param}`, headers());
   }
+
+  static deletePatient(patientId: any) {
+    return ajax.delete(`${api}/Patient/${patientId}`, headers());
+  }
 }

@@ -78,7 +78,6 @@ class CreateServicesModalComponent extends React.Component<
 
                 <InputNumber
                   style={{ width: "50%" }}
-                  defaultValue={1000}
                   formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                   placeholder="Nhập giá"
                 />

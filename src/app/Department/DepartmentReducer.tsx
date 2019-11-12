@@ -16,6 +16,7 @@ const initialState: DepartmentState = {
     pageIndex: 1,
     pageSize: PAGE_SIZE
   },
+  isOpenModalDelete: false,
   departments: []
 };
 export default createReducer(initialState, {
@@ -46,6 +47,18 @@ export default createReducer(initialState, {
   [actionType.CREATE_DEPARTMENT_FAIL]: (state: DepartmentState) => {
     return { ...state, isLoading: false };
   },
+
+  // delete
+  [actionType.DELETE_DEPARTMENT]: (state: DepartmentState) => {
+    return { ...state, isLoading: false };
+  },
+  [actionType.DELETE_DEPARTMENT_SUCCESS]: (state: DepartmentState) => {
+    return { ...state, isLoading: false, isOpenModalDelete: false };
+  },
+  [actionType.DELETE_DEPARTMENT_FAIL]: (state: DepartmentState) => {
+    return { ...state, isLoading: false };
+  },
+
   [actionType.DEPARTMENT_OPEN_CLOSE_MODAL]: (
     state: DepartmentState,
     payload

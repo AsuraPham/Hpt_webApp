@@ -6,6 +6,7 @@ export interface PatientState {
   isLoading?: boolean;
   isOpenModal: boolean;
   pagination: PaginationState;
+  isOpenModalDelete: boolean;
   patients?: PatientItem[];
   searchRequest?: SearchBaseModel;
 }

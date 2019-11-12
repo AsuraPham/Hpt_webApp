@@ -16,7 +16,7 @@ import {
   EMAIL_NOT_VALID,
   SELECT_DATE
 } from "../../../common/const/message";
-import { DATE_FORMAT_DD_MM_YYY } from "../../../common/Constants";
+import { DEFAULT_DATE_FORMAT } from "../../../common/Constants";
 import { BloodGroup, ListFolk } from "../../../common/const/enum";
 
 const { Option } = Select;
@@ -102,7 +102,7 @@ class CreatePatientModalComponent extends React.Component<
               {getFieldDecorator("dateOfBirth", config)(
                 <DatePicker
                   placeholder="Chọn ngày sinh"
-                  format={DATE_FORMAT_DD_MM_YYY}
+                  format={DEFAULT_DATE_FORMAT}
                 />
               )}
             </Form.Item>

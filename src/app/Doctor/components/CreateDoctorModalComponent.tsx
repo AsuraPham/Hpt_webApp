@@ -12,7 +12,7 @@ import {
 import { FormComponentProps } from "antd/lib/form";
 import TextArea from "antd/lib/input/TextArea";
 import { REQUIRED } from "../../../common/const/message";
-import { DATE_FORMAT_DD_MM_YYY } from "../../../common/Constants";
+import { DEFAULT_DATE_FORMAT } from "../../../common/Constants";
 import { BloodGroup } from "../../../common/const/enum";
 
 const { Option } = Select;
@@ -95,7 +95,7 @@ class CreateDoctorModalComponent extends React.Component<
               {getFieldDecorator("dateOfBirth", config)(
                 <DatePicker
                   placeholder="Chọn ngày sinh"
-                  format={DATE_FORMAT_DD_MM_YYY}
+                  format={DEFAULT_DATE_FORMAT}
                 />
               )}
             </Form.Item>

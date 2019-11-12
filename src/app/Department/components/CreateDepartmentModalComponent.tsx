@@ -84,8 +84,8 @@ class CreateDepartmentModalComponent extends React.Component<
               {getFieldDecorator("status", {
                 rules: [{ required: true, message: REQUIRED }]
               })(
-                <Radio.Group defaultValue={1}>
-                  <Radio value={1}>Hoạt Động</Radio>
+                <Radio.Group>
+                  <Radio value={1} checked>Hoạt Động</Radio>
                   <Radio value={0}>Không hoạt động</Radio>
                 </Radio.Group>
               )}

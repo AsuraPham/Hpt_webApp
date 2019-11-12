@@ -31,3 +31,7 @@ export const openCloseModel = (payload: any) => ({
   type: actionType.DEPARTMENT_OPEN_CLOSE_MODAL,
   payload
 });
+
+export const deleteDepartment = (payload: any) => ({ type: actionType.DELETE_DEPARTMENT, payload });
+export const deleteDepartmentSuccess = (payload: any) => ({ type: actionType.DELETE_DEPARTMENT_SUCCESS, payload });
+export const deleteDepartmentFail = (payload: any) => ({ type: actionType.DELETE_DEPARTMENT_FAIL, payload });

@@ -1,9 +1,10 @@
-import { Drawer, Form, Button, Col, Row, Input, Select, Spin } from "antd";
+import { Drawer, Form, Button, Col, Row, Input, Spin, DatePicker, InputNumber } from "antd";
 import * as React from "react";
 import { FormComponentProps } from "antd/lib/form";
+import { DEFAULT_DATE_FORMAT } from "../../../common/Constants";
+
 import "../medicine.css";
 
-const { Option } = Select;
 interface Props {
   isLoading: boolean;
   isOpenModal: boolean;
@@ -33,114 +34,121 @@ class CreateMedicineComponent extends React.Component<Props & FormComponentProps
   render() {
     const { isLoading, isOpenModal } = this.props;
     const { getFieldDecorator } = this.props.form;
+    const config = {
+      rules: [
+        { type: "object", required: true, message: "Please select time!" }
+      ]
+    };
+
     return (
       <div>
         <Drawer
-          title="Create a new account"
+          title="Thêm mới thuốc"
           width={720}
           onClose={this.onClose}
           visible={isOpenModal}
           className="dramwerForm"
+          destroyOnClose
         >
           <Spin size="large" spinning={isLoading}>
             <Form layout="vertical" hideRequiredMark>
               <Row gutter={16}>
                 <Col span={12}>
-                  <Form.Item label="Name">
+                  <Form.Item label="Tên thuốc">
                     {getFieldDecorator("name", {
-                      rules: [{ required: true, message: "Please enter user name" }],
-                    })(<Input placeholder="Please enter user name" />)}
+                      rules: [{ required: true, message: "Nhập tên thuốc" }],
+                    })(<Input placeholder="Nhập tên thuốc" />)}
                   </Form.Item>
                 </Col>
                 <Col span={12}>
-                  <Form.Item label="Url">
-                    {getFieldDecorator("url", {
-                      rules: [{ required: true, message: "Please enter url" }],
+                  <Form.Item label="Xuất xứ">
+                    {getFieldDecorator("origin", {
+                      rules: [{ required: true, message: "Nhập xuất xứ" }],
+                    })(<Input placeholder="Nhập xuất xứ" />)}
+                  </Form.Item>
+                </Col>
+              </Row>
+
+              <Row gutter={16} className="createRow">
+                <Col span={8}>
+                  <Form.Item label="Đơn vị">
+                    {getFieldDecorator("unit", {
+                      rules: [{ required: true, message: "Nhập đơn vị" }],
+                    })(<Input placeholder="Nhập đơn vị" />)}
+                  </Form.Item>
+                </Col>
+                <Col span={8}>
+                  <Form.Item label="Số lượng">
+                    {getFieldDecorator("quantityExists", {
+                      rules: [{ required: true, message: "Nhập Số lượng" }]
                     })(
-                      <Input
+                      <InputNumber
                         style={{ width: "100%" }}
-                        addonBefore="http://"
-                        addonAfter=".com"
-                        placeholder="Please enter url"
-                      />,
-                    )}
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Row gutter={16}>
-                <Col span={12}>
-                  <Form.Item label="Owner">
-                    {getFieldDecorator("owner", {
-                      rules: [{ required: true, message: "Please select an owner" }],
-                    })(
-                      <Select placeholder="Please select an owner">
-                        <Option value="xiao">Xiaoxiao Fu</Option>
-                        <Option value="mao">Maomao Zhou</Option>
-                      </Select>,
-                    )}
-                  </Form.Item>
-                </Col>
-                <Col span={12}>
-                  <Form.Item label="Type">
-                    {getFieldDecorator("type", {
-                      rules: [{ required: true, message: "Please choose the type" }],
-                    })(
-                      <Select placeholder="Please choose the type">
-                        <Option value="private">Private</Option>
-                        <Option value="public">Public</Option>
-                      </Select>,
-                    )}
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Row gutter={16}>
-                <Col span={12}>
-                  <Form.Item label="Approver">
-                    {getFieldDecorator("approver", {
-                      rules: [{ required: true, message: "Please choose the approver" }],
-                    })(
-                      <Select placeholder="Please choose the approver">
-                        <Option value="jack">Jack Ma</Option>
-                        <Option value="tom">Tom Liu</Option>
-                      </Select>,
+                        min={0}
+                        formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                        placeholder="Nhập số lượng"
+                      />
                     )}
                   </Form.Item>
                 </Col>
 
+                <Col span={8}>
+                  <Form.Item label="Đơn giá">
+                    {getFieldDecorator("price", {
+                      rules: [{ required: true, message: "Nhập giá" }]
+                    })(
+                      <InputNumber
+                        style={{ width: "100%" }}
+                        min={0}
+                        formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                        placeholder="Nhập giá"
+                      />
+                    )}
+                  </Form.Item>
+                </Col>
               </Row>
-              <Row gutter={16}>
-                <Col span={24}>
-                  <Form.Item label="Description">
-                    {getFieldDecorator("description", {
-                      rules: [
-                        {
-                          required: true,
-                          message: "please enter url description",
-                        },
-                      ],
-                    })(<Input.TextArea rows={4} placeholder="please enter url description" />)}
+              <Row gutter={16} className="createRow">
+                <Col span={8}>
+                  <Form.Item label="Ngày nhập">
+                    {getFieldDecorator("importDate", config)(
+                      <DatePicker
+                        placeholder="Chọn ngày nhập"
+                        format={DEFAULT_DATE_FORMAT}
+                      />
+                    )}
+                  </Form.Item>
+                </Col>
+                <Col span={8}>
+                  <Form.Item label="Ngày sản xuất">
+                    {getFieldDecorator("dateOfManufacture", config)(
+                      <DatePicker
+                        placeholder="Chọn ngày sản xuất"
+                        format={DEFAULT_DATE_FORMAT}
+                      />
+                    )}
+                  </Form.Item>
+                </Col>
+                <Col span={8}>
+                  <Form.Item label="Ngày hết hạn">
+                    {getFieldDecorator("expirationDate", config)(
+                      <DatePicker
+                        placeholder="Chọn ngày hết hạn"
+                        format={DEFAULT_DATE_FORMAT}
+                      />
+                    )}
                   </Form.Item>
                 </Col>
               </Row>
             </Form>
           </Spin>
           <div
-            style={{
-              position: "absolute",
-              left: 0,
-              bottom: 0,
-              width: "100%",
-              borderTop: "1px solid #e9e9e9",
-              padding: "10px 16px",
-              background: "#fff",
-              textAlign: "right",
-            }}
+            className="formFooter"
           >
             <Button onClick={this.onClose} style={{ marginRight: 8 }}>
-              Cancel
+              Huỷ
             </Button>
-            <Button onClick={this.onClose} type="primary">
-              Submit
+            <Button onClick={this.onSubmit} key="submit" type="primary">
+              Tạo mới
             </Button>
           </div>
         </Drawer>

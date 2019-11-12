@@ -17,6 +17,7 @@ interface Props extends DepartmentState {
   actions: typeof actionCreators;
   isLoading?: boolean;
   history?: any;
+  isOpenModalDelete: boolean;
 }
 
 class Department extends React.Component<Props, any> {
@@ -80,7 +81,8 @@ class Department extends React.Component<Props, any> {
       pagination,
       departments,
       isLoading,
-      actions
+      actions,
+      isOpenModalDelete
     } = this.props;
     return (
       <div>
@@ -118,6 +120,7 @@ class Department extends React.Component<Props, any> {
               onSearch={this.onSearch}
               departments={departments}
               isLoading={isLoading}
+              isOpenModalDelete={isOpenModalDelete}
             />
           </div>
         </Spin>

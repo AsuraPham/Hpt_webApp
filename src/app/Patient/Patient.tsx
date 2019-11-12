@@ -17,6 +17,7 @@ interface Props extends PatientState {
   actions: typeof actionCreators;
   isLoading: boolean;
   history?: any;
+  isOpenModalDelete: boolean;
 }
 
 class Patient extends React.Component<Props, any> {
@@ -80,7 +81,8 @@ class Patient extends React.Component<Props, any> {
       patients,
       isLoading,
       actions,
-      isOpenModal
+      isOpenModal,
+      isOpenModalDelete
     } = this.props;
     return (
       <div>
@@ -118,6 +120,7 @@ class Patient extends React.Component<Props, any> {
               onSearch={this.onSearch}
               patients={patients}
               isLoading={isLoading}
+              isOpenModalDelete={isOpenModalDelete}
             />
           </div>
         </Spin>
