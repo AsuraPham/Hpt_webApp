@@ -12,6 +12,9 @@ import Patient from "./app/Patient/Patient";
 import Doctor from "./app/Doctor/Doctor";
 import Medicine from "./app/Medicine/Medicine";
 import Sevices from "./app/ServicesExamination/Services";
+import ClinicManager from "./app/Admin/ClinicManager/ClinicManager";
+import UserManager from "./app/Admin/UserManager/UserManager";
+import ReceivePatient from "./app/Receptionist/ReceivePatient/ReceivePatient";
 
 class App extends React.Component {
   public token = "";
@@ -33,6 +36,10 @@ class App extends React.Component {
         <PrivateRoute path={STATIC_ROUTE.DOCTOR} component={Doctor} />
         <PrivateRoute path={STATIC_ROUTE.MEDICINE} component={Medicine} />
         <PrivateRoute path={STATIC_ROUTE.SERVICES} component={Sevices} />
+        {/* admin */}
+        <PrivateRoute path={STATIC_ROUTE.CLINIC_MANAGER} component={ClinicManager} />
+        <PrivateRoute path={STATIC_ROUTE.USER_MANAGER} component={UserManager} />
+        <PrivateRoute path={STATIC_ROUTE.RECEIVE_PATIENT} component={ReceivePatient} />
         <Route
           path="/signin-oidc"
           render={() => adalContext.AuthContext.handleWindowCallback()}

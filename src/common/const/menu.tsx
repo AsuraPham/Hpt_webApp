@@ -7,3 +7,6 @@ export const NOTIFICATION = "Thông báo";
 export const PATIENT = "Bệnh nhân";
 export const MEDICINE = "Quản lý thuốc";
 export const SERVICE = "Dịch vụ";
+export const CLINIC_MANAGER = "Quản lý phòng khám";
+export const USER_MANAGER = "Quản lý người dùng";
+export const RECEIVE_PATIENT = "Tiếp nhận";

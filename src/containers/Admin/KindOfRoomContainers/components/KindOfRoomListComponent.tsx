@@ -3,14 +3,14 @@ import { Table, Divider } from "antd";
 import Search from "antd/lib/input/Search";
 import { ColumnProps } from "antd/lib/table";
 
-import { PaginationState } from "../../../common/models/Pagination";
-import { SortModel } from "../../../common/models/SearchBaseModel";
+import { PaginationState } from "../../../../common/models/Pagination";
+import { SortModel } from "../../../../common/models/SearchBaseModel";
 
-import * as actionCreators from "../DepartmentAction";
-import DeleteModalComponent from "../../../common/components/DeleteModalComponent";
+import * as actionCreators from "../KindOfRoomAction";
+import DeleteModalComponent from "../../../../common/components/DeleteModalComponent";
 
 type Props = {
-  departments?: any[];
+  kindOfRooms?: any[];
   pagination: PaginationState;
   handleTableChange?: any;
   onSearch?: any;
@@ -19,29 +19,17 @@ type Props = {
   isLoading?: boolean;
   isOpenModalDelete: boolean;
 };
-export default class DeviceListComponent extends React.Component<Props, any> {
+export default class KindOfRoomListComponent extends React.Component<Props, any> {
   columns: ColumnProps<any>[] = [
     {
-      title: "Tên khoa",
-      dataIndex: "name",
-      key: "name",
-      sorter: true,
-      width: 150
+      title: "ID",
+      dataIndex: "id",
+      key: "id"
     },
     {
-      title: "Mô tả",
-      dataIndex: "description",
-      key: "description"
-    },
-    {
-      title: "Trạng thái",
-      dataIndex: "status",
-      key: "status",
-      width: 150,
-      render: status => {
-        status === 1 ? (status = "Hoạt động") : (status = "Không hoạt động");
-        return status;
-      }
+      title: "Tên loại phòng",
+      dataIndex: "nameKindOfRoom",
+      key: "nameKindOfRoom"
     },
     {
       title: "",
@@ -75,10 +63,10 @@ export default class DeviceListComponent extends React.Component<Props, any> {
     actions.openCloseModel({ isOpenModalDelete: true });
   }
 
-  deleteDepartment = () => {
+  deleteKindOfRoom = () => {
     const { actions } = this.props;
     const { selected } = this.state;
-    actions.deleteDepartment(selected.id);
+    actions.deleteKindOfRoom(selected.id);
   }
 
   closeModal = object => {
@@ -87,7 +75,7 @@ export default class DeviceListComponent extends React.Component<Props, any> {
   }
 
   render() {
-    const { departments, pagination, handleTableChange, isLoading, isOpenModalDelete } = this.props;
+    const { kindOfRooms, pagination, handleTableChange, isLoading, isOpenModalDelete } = this.props;
     return (
       <div className="mb-30 col">
         <div className="card-statistics h-100 card">
@@ -95,7 +83,7 @@ export default class DeviceListComponent extends React.Component<Props, any> {
             <div className="row">
               <div className="col-sm-3 col-md-3">
                 <h5 className="mb-30">
-                  <b>Danh sách khoa</b>
+                  <b>Danh sách loại phòng</b>
                 </h5>
               </div>
               <div className="col-md-6">
@@ -110,7 +98,7 @@ export default class DeviceListComponent extends React.Component<Props, any> {
               <Table
                 className="mb-30 col"
                 columns={this.columns}
-                dataSource={departments}
+                dataSource={kindOfRooms}
                 pagination={pagination}
                 onChange={handleTableChange}
                 rowKey="id"
@@ -120,11 +108,11 @@ export default class DeviceListComponent extends React.Component<Props, any> {
         </div>
 
         <DeleteModalComponent
-          delete={this.deleteDepartment}
+          delete={this.deleteKindOfRoom}
           isLoading={isLoading}
           isOpenModalDelete={isOpenModalDelete}
           closeModal={this.closeModal}
-          message={"Bạn có chắc chắn muốn xoá khoa này?"}
+          message={"Bạn có chắc chắn muốn xoá loại phòng này?"}
         ></DeleteModalComponent>
       </div>
     );

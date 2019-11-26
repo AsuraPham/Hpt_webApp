@@ -3,14 +3,14 @@ import { Table, Divider } from "antd";
 import Search from "antd/lib/input/Search";
 import { ColumnProps } from "antd/lib/table";
 
-import { PaginationState } from "../../../common/models/Pagination";
-import { SortModel } from "../../../common/models/SearchBaseModel";
+import { PaginationState } from "../../../../common/models/Pagination";
+import { SortModel } from "../../../../common/models/SearchBaseModel";
 
-import * as actionCreators from "../DepartmentAction";
-import DeleteModalComponent from "../../../common/components/DeleteModalComponent";
+import * as actionCreators from "../ClinicAction";
+import DeleteModalComponent from "../../../../common/components/DeleteModalComponent";
 
 type Props = {
-  departments?: any[];
+  clinics?: any[];
   pagination: PaginationState;
   handleTableChange?: any;
   onSearch?: any;
@@ -19,29 +19,39 @@ type Props = {
   isLoading?: boolean;
   isOpenModalDelete: boolean;
 };
-export default class DeviceListComponent extends React.Component<Props, any> {
+export default class ClinicListComponent extends React.Component<Props, any> {
   columns: ColumnProps<any>[] = [
     {
-      title: "Tên khoa",
-      dataIndex: "name",
-      key: "name",
-      sorter: true,
+      title: "Id",
+      dataIndex: "id",
+      key: "id",
+      width: 100,
+      sorter: true
+    },
+    {
+      title: "Tên phòng khám",
+      dataIndex: "nameClinic",
+      key: "nameClinic",
+      width: 300,
+      sorter: true
+    },
+    {
+      title: "Số phòng",
+      dataIndex: "location",
+      key: "location",
       width: 150
     },
     {
-      title: "Mô tả",
-      dataIndex: "description",
-      key: "description"
+      title: "Tên loại phòng",
+      dataIndex: "nameKindOfRoom",
+      key: "nameKindOfRoom",
+      width: 200
     },
     {
-      title: "Trạng thái",
-      dataIndex: "status",
-      key: "status",
-      width: 150,
-      render: status => {
-        status === 1 ? (status = "Hoạt động") : (status = "Không hoạt động");
-        return status;
-      }
+      title: "Tên khoa",
+      dataIndex: "departmentName",
+      key: "departmentName",
+      width: 200
     },
     {
       title: "",
@@ -75,10 +85,10 @@ export default class DeviceListComponent extends React.Component<Props, any> {
     actions.openCloseModel({ isOpenModalDelete: true });
   }
 
-  deleteDepartment = () => {
+  deleteClinic = () => {
     const { actions } = this.props;
     const { selected } = this.state;
-    actions.deleteDepartment(selected.id);
+    actions.deleteClinic(selected.id);
   }
 
   closeModal = object => {
@@ -87,7 +97,7 @@ export default class DeviceListComponent extends React.Component<Props, any> {
   }
 
   render() {
-    const { departments, pagination, handleTableChange, isLoading, isOpenModalDelete } = this.props;
+    const { clinics, pagination, handleTableChange, isLoading, isOpenModalDelete } = this.props;
     return (
       <div className="mb-30 col">
         <div className="card-statistics h-100 card">
@@ -95,7 +105,7 @@ export default class DeviceListComponent extends React.Component<Props, any> {
             <div className="row">
               <div className="col-sm-3 col-md-3">
                 <h5 className="mb-30">
-                  <b>Danh sách khoa</b>
+                  <b>Danh sách phòng khám</b>
                 </h5>
               </div>
               <div className="col-md-6">
@@ -110,7 +120,7 @@ export default class DeviceListComponent extends React.Component<Props, any> {
               <Table
                 className="mb-30 col"
                 columns={this.columns}
-                dataSource={departments}
+                dataSource={clinics}
                 pagination={pagination}
                 onChange={handleTableChange}
                 rowKey="id"
@@ -120,11 +130,11 @@ export default class DeviceListComponent extends React.Component<Props, any> {
         </div>
 
         <DeleteModalComponent
-          delete={this.deleteDepartment}
+          delete={this.deleteClinic}
           isLoading={isLoading}
           isOpenModalDelete={isOpenModalDelete}
           closeModal={this.closeModal}
-          message={"Bạn có chắc chắn muốn xoá khoa này?"}
+          message={"Bạn có chắc chắn muốn xoá loại phòng này?"}
         ></DeleteModalComponent>
       </div>
     );

@@ -1,4 +1,4 @@
-import { DeviceLocationStatistic } from './DashboardModel';
+import { DeviceLocationStatistic } from "./DashboardModel";
 
 export interface DashboardState {
     isLoading?: boolean;

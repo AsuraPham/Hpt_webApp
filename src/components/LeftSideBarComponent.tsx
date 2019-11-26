@@ -16,7 +16,10 @@ import {
   PATIENT,
   NOTIFICATION,
   MEDICINE,
-  SERVICE
+  SERVICE,
+  CLINIC_MANAGER,
+  USER_MANAGER,
+  RECEIVE_PATIENT
 } from "../common/const/menu";
 import "./leftSideBar.css";
 
@@ -37,6 +40,16 @@ export const LeftSideBarComponent = () => (
                 <span className="right-nav-text">{DASHBOARD}</span>
               </NavLink>
             </li>
+
+            <li>
+              <NavLink to={STATIC_ROUTE.RECEIVE_PATIENT}>
+                <i className="ti-home">
+                  <img className="imageIcon" src={iconDeparment} />
+                </i>
+                <span className="right-nav-text">{RECEIVE_PATIENT}</span>
+              </NavLink>
+            </li>
+
             <li>
               <NavLink to={STATIC_ROUTE.DEPARTMENT}>
                 <i className="ti-home">
@@ -76,6 +89,22 @@ export const LeftSideBarComponent = () => (
                   <img src={iconPack} />
                 </i>
                 <span className="right-nav-text">{MEDICINE}</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={STATIC_ROUTE.CLINIC_MANAGER}>
+                <i className="ti-home">
+                  <img src={iconPack} />
+                </i>
+                <span className="right-nav-text">{CLINIC_MANAGER}</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={STATIC_ROUTE.USER_MANAGER}>
+                <i className="ti-home">
+                  <img src={iconPack} />
+                </i>
+                <span className="right-nav-text">{USER_MANAGER}</span>
               </NavLink>
             </li>
             <li>

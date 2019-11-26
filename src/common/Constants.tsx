@@ -25,7 +25,10 @@ export const STATIC_ROUTE = {
   HOME: "/home",
   LOGIN: "/login",
   MEDICINE: "/medicine",
-  SERVICES: "/services"
+  SERVICES: "/services",
+  CLINIC_MANAGER: "/admin/clinic_manager",
+  USER_MANAGER: "/admin/user_manager",
+  RECEIVE_PATIENT: "/receptionist/receive_patient"
 };
 
 export const DEVICE_MIN_NAME = 5;

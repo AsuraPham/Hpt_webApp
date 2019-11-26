@@ -1,6 +1,6 @@
-import { NotificationStatisticItem, NotificationItemModel, NotificationStatusModel } from './NotificationModel';
-import { SearchBaseModel } from '../../../common/models/SearchBaseModel';
-import { PaginationState } from '../../../common/models/Pagination';
+import { NotificationStatisticItem, NotificationItemModel, NotificationStatusModel } from "./NotificationModel";
+import { SearchBaseModel } from "../../../common/models/SearchBaseModel";
+import { PaginationState } from "../../../common/models/Pagination";
 
 export interface NotificationState {
   isLoading: boolean;

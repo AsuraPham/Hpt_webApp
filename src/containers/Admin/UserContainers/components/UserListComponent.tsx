@@ -3,14 +3,15 @@ import { Table, Divider } from "antd";
 import Search from "antd/lib/input/Search";
 import { ColumnProps } from "antd/lib/table";
 
-import { PaginationState } from "../../../common/models/Pagination";
-import { SortModel } from "../../../common/models/SearchBaseModel";
+import { PaginationState } from "../../../../common/models/Pagination";
+import { SortModel } from "../../../../common/models/SearchBaseModel";
 
-import * as actionCreators from "../DepartmentAction";
-import DeleteModalComponent from "../../../common/components/DeleteModalComponent";
+import * as actionCreators from "../UserAction";
+import DeleteModalComponent from "../../../../common/components/DeleteModalComponent";
+import { dateFormat } from "../../../../common/utils";
 
 type Props = {
-  departments?: any[];
+  users?: any[];
   pagination: PaginationState;
   handleTableChange?: any;
   onSearch?: any;
@@ -19,29 +20,70 @@ type Props = {
   isLoading?: boolean;
   isOpenModalDelete: boolean;
 };
-export default class DeviceListComponent extends React.Component<Props, any> {
+export default class UserListComponent extends React.Component<Props, any> {
   columns: ColumnProps<any>[] = [
     {
-      title: "Tên khoa",
-      dataIndex: "name",
-      key: "name",
+      title: "Id",
+      dataIndex: "id",
+      key: "id",
       sorter: true,
+      width: 100
+    },
+    {
+      title: "Họ tên",
+      dataIndex: "fullName",
+      key: "fullName",
+      sorter: true,
+      width: 200
+    },
+    {
+      title: "Giới tính",
+      dataIndex: "sex",
+      key: "sex",
+      width: 100
+    },
+    {
+      title: "Ngày sinh",
+      dataIndex: "dateDateOfBirth",
+      render: (text, record: any) => dateFormat(record.dateDateOfBirth),
+      key: "dateDateOfBirth",
+      width: 200
+    },
+    {
+      title: "Địa chỉ",
+      dataIndex: "address",
+      key: "address",
+      width: 300
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      width: 200
+    },
+    {
+      title: "Số ĐT",
+      dataIndex: "phone",
+      key: "phone",
       width: 150
     },
     {
-      title: "Mô tả",
-      dataIndex: "description",
-      key: "description"
+      title: "Vị trí",
+      dataIndex: "position",
+      key: "position",
+      width: 200
     },
     {
-      title: "Trạng thái",
-      dataIndex: "status",
-      key: "status",
-      width: 150,
-      render: status => {
-        status === 1 ? (status = "Hoạt động") : (status = "Không hoạt động");
-        return status;
-      }
+      title: "Tên phòng",
+      dataIndex: "clinicName",
+      key: "clinicNam",
+      width: 200
+    },
+    {
+      title: "Tên quyền",
+      dataIndex: "roleName",
+      key: "roleName",
+      width: 200
     },
     {
       title: "",
@@ -75,10 +117,10 @@ export default class DeviceListComponent extends React.Component<Props, any> {
     actions.openCloseModel({ isOpenModalDelete: true });
   }
 
-  deleteDepartment = () => {
+  deleteUser = () => {
     const { actions } = this.props;
     const { selected } = this.state;
-    actions.deleteDepartment(selected.id);
+    actions.deleteUser(selected.id);
   }
 
   closeModal = object => {
@@ -87,7 +129,7 @@ export default class DeviceListComponent extends React.Component<Props, any> {
   }
 
   render() {
-    const { departments, pagination, handleTableChange, isLoading, isOpenModalDelete } = this.props;
+    const { users, pagination, handleTableChange, isLoading, isOpenModalDelete } = this.props;
     return (
       <div className="mb-30 col">
         <div className="card-statistics h-100 card">
@@ -95,7 +137,7 @@ export default class DeviceListComponent extends React.Component<Props, any> {
             <div className="row">
               <div className="col-sm-3 col-md-3">
                 <h5 className="mb-30">
-                  <b>Danh sách khoa</b>
+                  <b>Danh sách người dùng</b>
                 </h5>
               </div>
               <div className="col-md-6">
@@ -110,7 +152,7 @@ export default class DeviceListComponent extends React.Component<Props, any> {
               <Table
                 className="mb-30 col"
                 columns={this.columns}
-                dataSource={departments}
+                dataSource={users}
                 pagination={pagination}
                 onChange={handleTableChange}
                 rowKey="id"
@@ -120,11 +162,11 @@ export default class DeviceListComponent extends React.Component<Props, any> {
         </div>
 
         <DeleteModalComponent
-          delete={this.deleteDepartment}
+          delete={this.deleteUser}
           isLoading={isLoading}
           isOpenModalDelete={isOpenModalDelete}
           closeModal={this.closeModal}
-          message={"Bạn có chắc chắn muốn xoá khoa này?"}
+          message={"Bạn có chắc chắn muốn xoá người dùng này?"}
         ></DeleteModalComponent>
       </div>
     );
