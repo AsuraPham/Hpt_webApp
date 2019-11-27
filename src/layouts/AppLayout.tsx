@@ -1,11 +1,8 @@
 import React from "react";
 import ReduxToastr from "react-redux-toastr";
-import { connect } from "react-redux";
 
 import LeftSideBarComponent from "../components/LeftSideBarComponent";
-import { TopBarComponet } from "../components/TopBarComponent";
-import { State } from "../root";
-import { UserModel } from "../app/Login/models/AuthState";
+import TopBarComponet from "../components/TopBarComponent";
 
 import "../css/app.css";
 import "antd/dist/antd.css";
@@ -13,11 +10,7 @@ import "../css/antd.css";
 import "font-awesome/css/font-awesome.min.css";
 import "react-redux-toastr/lib/css/react-redux-toastr.min.css";
 
-interface Props {
-  userInfo: UserModel;
-}
-
-class AppLayout extends React.Component<Props, any> {
+export default class AppLayout extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -38,12 +31,11 @@ class AppLayout extends React.Component<Props, any> {
         }
       >
         <TopBarComponet
-          userInfo={this.props.userInfo}
           toogleClass={this.toogleClass}
-        ></TopBarComponet>
+        />
         <div className="container-fluid">
           <div className="row">
-            <LeftSideBarComponent></LeftSideBarComponent>
+            <LeftSideBarComponent />
             <div className="content-wrapper">
               <ReduxToastr
                 timeOut={4000}
@@ -61,7 +53,3 @@ class AppLayout extends React.Component<Props, any> {
     );
   }
 }
-const mapStateToProps = (state: State) => ({
-  userInfo: state.authState.userInfo
-});
-export default connect(mapStateToProps)(AppLayout);

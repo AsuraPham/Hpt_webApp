@@ -7,6 +7,13 @@ export function headers() {
   };
 }
 
+export function headAllowAnonymous() {
+  return {
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  };
+}
+
 export function ajaxOption() {
   return {
     headers: headers(),

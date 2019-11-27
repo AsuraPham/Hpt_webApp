@@ -35,7 +35,6 @@ class AdalContext {
   }
   public LogOut() {
     localStorage.removeItem(TOKEN_KEY);
-    this.AuthContext.logOut();
   }
 }
 const adalContext: AdalContext = new AdalContext();

@@ -10,3 +10,4 @@ export const SERVICE = "Dịch vụ";
 export const CLINIC_MANAGER = "Quản lý phòng khám";
 export const USER_MANAGER = "Quản lý người dùng";
 export const RECEIVE_PATIENT = "Tiếp nhận";
+export const PENDING_MEDICAL = "Danh sách chờ khám";

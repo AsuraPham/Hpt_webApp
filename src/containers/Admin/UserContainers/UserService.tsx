@@ -7,7 +7,7 @@ const api = `${process.env.REACT_APP_CLIENT_ROOT}`;
 
 export default class UserServices {
   static createUser(request: any) {
-    return ajax.post(`${api}/User`, request, headers());
+    return ajax.post(`${api}/User/register`, request, headers());
   }
 
   static getListUser(request: SearchBaseModel) {

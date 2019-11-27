@@ -1,51 +1,99 @@
 import * as React from "react";
 import "../Login/Login.css";
 import { signIn } from "../../common/const/image-const";
-import adalContext from "../../common/authConfig";
-import { TOKEN_KEY, STATIC_ROUTE } from "../../common/Constants";
-import { State } from "../../root";
-import { bindActionCreators } from "redux";
-import * as actionCreators from "../Login/AuthAction";
-import { connect } from "react-redux";
+import Form, { FormComponentProps } from "antd/lib/form";
+import { ACCOUNT_INFO, TOKEN_KEY, STATIC_ROUTE } from "../../common/Constants";
+import ReduxToastr from "react-redux-toastr";
+import { Input, Icon, Button } from "antd";
+import { toastr } from "react-redux-toastr";
+
+import SignInService from "./SignInService";
+import { SIGNIN_ERROR, SIGNIN_SUCCESS } from "../../common/const/message";
+import { ERROR, SUCCESS } from "../../common/components/messages";
+
 interface Props {
-    getUserInfo?: any;
-    syncUserInfo?: any;
-    history?: any;
-    isLoading?: boolean;
+  history?: any;
 }
-class SignIn extends React.Component<Props> {
-    constructor(props: any) {
-        super(props);
-    }
-    componentDidMount() {
-        adalContext.GetToken().then(async tokens => {
-            localStorage.setItem(TOKEN_KEY, tokens || "");
-            await this.props.syncUserInfo();
-            this.redirectToAdmin();
-        });
-    }
-    redirectToAdmin = () => {
-        this.props.history.push(STATIC_ROUTE.HOME);
-    }
+class SignInComponent extends React.Component<Props & FormComponentProps> {
+  constructor(props: Props & FormComponentProps) {
+    super(props);
+    this.routeChange = this.routeChange.bind(this);
+  }
 
-    render() {
-        return (
-            <div className="wapper">
-                <img className="img" src={signIn} alt="" />
-                <form className="form-signin">
-                    <h1 className="txt-sign">Sign In</h1>
-                    <div className="btn btn-sign" onClick={() => adalContext.Login()}><span style={{ verticalAlign: "middle" }}>Sign in</span></div>
-                </form>
-            </div>
-        );
-    }
+  routeChange = () => {
+    this.props.history.push(STATIC_ROUTE.HOME);
+  }
+
+  userApi = new SignInService();
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const form = this.props.form;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+      this.userApi.signIn(values).toPromise().then((data: any) => {
+        if (data.response && data.response.hasErrors) {
+          toastr.error(ERROR, SIGNIN_ERROR);
+        } else {
+          toastr.success(SUCCESS, SIGNIN_SUCCESS);
+          localStorage.setItem(ACCOUNT_INFO, JSON.stringify(data.response.result));
+          localStorage.setItem(TOKEN_KEY, JSON.stringify(data.response.result && data.response.result.token));
+          this.routeChange();
+        }
+      });
+
+    });
+  }
+
+  render() {
+    const { getFieldDecorator } = this.props.form;
+    return (
+      <div className="wapper">
+        <ReduxToastr
+          timeOut={4000}
+          newestOnTop={false}
+          preventDuplicates={true}
+          position="top-right"
+          transitionIn="fadeIn"
+          transitionOut="fadeOut"
+        />
+        <img className="img" src={signIn} alt="" />
+        <Form onSubmit={this.handleSubmit} className="form-signin">
+          <h4>Đăng nhập vào hệ thống</h4>
+          <Form.Item>
+            {getFieldDecorator("username", {
+              rules: [{ required: true, message: "Please input your username!" }],
+            })(
+              <Input
+                prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+                placeholder="Username"
+              />,
+            )}
+          </Form.Item>
+          <Form.Item>
+            {getFieldDecorator("password", {
+              rules: [{ required: true, message: "Please input your Password!" }],
+            })(
+              <Input
+                prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+                type="password"
+                placeholder="Password"
+                style={{ marginTop: 20 }}
+              />,
+            )}
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="login-form-button" style={{ marginTop: 20 }}>
+              Log in
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+    );
+  }
 }
-const mapStateToProps = (state: State) => ({
-    ...state.authState
-});
-const mapDispatchToProps = (dispatch: any) => ({
-    getUserInfo: bindActionCreators<any>(actionCreators.getUserInfo, dispatch),
-    syncUserInfo: bindActionCreators<any>(actionCreators.syncUserInfo, dispatch)
 
-});
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+const SignIn = Form.create()(SignInComponent);
+export default SignIn;

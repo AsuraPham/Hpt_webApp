@@ -158,7 +158,7 @@ class CreatePatientModalComponent extends React.Component<
 
             <Form.Item label="Nhóm máu">
               {getFieldDecorator("bloodGroup", {
-                rules: [{ required: true, message: REQUIRED }]
+                rules: [{ required: false, message: REQUIRED }]
               })(
                 <Select placeholder="Chọn một nhóm máu">
                   {BloodGroup.map(item => {

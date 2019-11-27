@@ -3,12 +3,11 @@ import { ERROR } from "../common/components/messages";
 import { handleServerError } from "../actionTypes";
 import { Observable } from "rxjs";
 import { HTTP_STATUS_UNAUTHORIZED } from "./Constants";
-import { logout } from "../app/Login/AuthAction";
 
 export function handleApiError(error: any) {
   if (error && error.status === HTTP_STATUS_UNAUTHORIZED) { // login, token expired
     localStorage.removeItem("token");
-    return Observable.of(logout());
+    return Observable.of();
   }
   const errors = error.response && error.response.errors ? error.response.errors : [];
   if (errors && errors.length > 0) {

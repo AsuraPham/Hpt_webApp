@@ -11,7 +11,7 @@ import {
 } from "antd";
 import { FormComponentProps } from "antd/lib/form";
 import TextArea from "antd/lib/input/TextArea";
-import { REQUIRED } from "../../../common/const/message";
+import { REQUIRED, EMAIL_NOT_VALID } from "../../../common/const/message";
 import { DEFAULT_DATE_FORMAT } from "../../../common/Constants";
 import { BloodGroup } from "../../../common/const/enum";
 
@@ -160,7 +160,8 @@ class CreateDoctorModalComponent extends React.Component<
 
             <Form.Item label="Email">
               {getFieldDecorator("email", {
-                rules: [{ required: false, message: REQUIRED }]
+                rules: [{ required: false, message: REQUIRED },
+                { type: "email", message: EMAIL_NOT_VALID }]
               })(<Input placeholder="Nhập Email" />)}
             </Form.Item>
 

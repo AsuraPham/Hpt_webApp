@@ -8,21 +8,11 @@ import patientState from "./app/Patient/PatientReducer";
 import doctorState from "./app/Doctor/DoctorReducer";
 import servicesState from "./app/ServicesExamination/ServicesReducer";
 import medicineState from "./app/Medicine/MedicineReducer";
-import authState from "./app/Login/AuthReducer";
 import kindOfRoomState from "./containers/Admin/KindOfRoomContainers/KindOfRoomReducer";
 import clinicState from "./containers/Admin/ClinicContainers/ClinicReducer";
 import roleState from "./containers/Admin/RoleContainers/RoleReducer";
 import userState from "./containers/Admin/UserContainers/UserReducer";
 import pendingMedicalState from "./containers/Receptionist/PendingMedical/PendingMedicalReducer";
-
-import { AuthState } from "./app/Login/models/AuthState";
-import { authEpics } from "./app/Login/AuthEpics";
-import { DashboardState } from "./app/Dashboard/models/DashboardState";
-import { dashboardEpics } from "./app/Dashboard/DashboardEpic";
-import dashboardState from "./app/Dashboard/DashboardReducer";
-import { NotificationState } from "./app/Notifications/models/NotificationState";
-import notificationState from "./app/Notifications/NotificationReducer";
-import { notificationEpic } from "./app/Notifications/NotificationEpics";
 
 // state
 import { DepartmentState } from "./app/Department/models/DepartmentState";
@@ -49,10 +39,7 @@ import { userEpics } from "./containers/Admin/UserContainers/UserEpic";
 import { pendingMedicalEpic } from "./containers/Receptionist/PendingMedical/PendingMedicalEpic";
 
 export interface State {
-  authState: AuthState;
   departmentState: DepartmentState;
-  dashboardState: DashboardState;
-  notificationState: NotificationState;
   patientState: PatientState;
   doctorState: DoctorState;
   servicesState: ServicesState;
@@ -66,10 +53,7 @@ export interface State {
 
 export const rootEpic = (action$: any, store?: any) =>
   combineEpics(
-    authEpics,
     deparmentEpics,
-    dashboardEpics,
-    notificationEpic,
     patientEpics,
     doctorEpics,
     servicesEpics,
@@ -88,11 +72,8 @@ export const rootEpic = (action$: any, store?: any) =>
 export const rootReducer = combineReducers<State>({
   routing: routerReducer,
   toastr: toastrReducer,
-  authState,
   departmentState,
   patientState,
-  dashboardState,
-  notificationState,
   doctorState,
   servicesState,
   medicineState,

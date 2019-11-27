@@ -2,7 +2,7 @@ import * as React from "react";
 import { Modal, Form, Input, Button, Spin, Select, Radio, DatePicker } from "antd";
 import { FormComponentProps } from "antd/lib/form";
 
-import { REQUIRED } from "../../../../common/const/message";
+import { REQUIRED, EMAIL_NOT_VALID } from "../../../../common/const/message";
 import TextArea from "antd/lib/input/TextArea";
 import { DEFAULT_DATE_FORMAT } from "../../../../common/Constants";
 
@@ -79,7 +79,7 @@ class CreateUserModalComponent extends React.Component<
             className="from-create-user"
           >
             <Form.Item label="Tên người dùng">
-              {getFieldDecorator("name", {
+              {getFieldDecorator("fullName", {
                 rules: [{ required: true, message: REQUIRED }]
               })(<Input placeholder="Tên người dùng" />)}
             </Form.Item>
@@ -121,6 +121,13 @@ class CreateUserModalComponent extends React.Component<
               {getFieldDecorator("address", {
                 rules: [{ required: true, message: REQUIRED }]
               })(<TextArea placeholder="Nhập địa chỉ" />)}
+            </Form.Item>
+
+            <Form.Item label="Email">
+              {getFieldDecorator("email", {
+                rules: [{ required: true, message: REQUIRED },
+                { type: "email", message: EMAIL_NOT_VALID }]
+              })(<Input placeholder="Nhập Email" />)}
             </Form.Item>
 
             <Form.Item label="Vị trí">

@@ -16,4 +16,8 @@ export default class PendingMedicalServices {
     return ajax.getJSON(`${api}/PendingMedicalBill?${param}`, headers());
   }
 
+  getPendingCount() {
+    return ajax.getJSON(`${api}/PendingMedicalBill/getPendingCount`, headers());
+  }
+
 }
