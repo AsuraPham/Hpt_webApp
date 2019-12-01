@@ -9,4 +9,9 @@ export interface PatientItem {
   dateOfBirth: Date;
   sex: string;
   bloodGroup: string;
+  profession: string; // nghe nghiep
+  dateOfSupplyHealth: Date;
+  expirationDateHealth: Date;
+  candidateName: string; // doi tuong
+  codeHealthInsurance: string; // ma bhyt
 }

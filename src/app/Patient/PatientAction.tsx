@@ -35,3 +35,7 @@ export const openCloseModel = (payload: any) => ({
 export const deletePatient = (payload: any) => ({ type: actionType.DELETE_PATIENT, payload });
 export const deletePatientSuccess = (payload: any) => ({ type: actionType.DELETE_PATIENT_SUCCESS, payload });
 export const deletePatientFail = (payload: any) => ({ type: actionType.DELETE_PATIENT_FAIL, payload });
+
+export const editPatient = (payload: any) => ({ type: actionType.EDIT_PATIENT, payload });
+export const editPatientSuccess = (payload: any) => ({ type: actionType.EDIT_PATIENT_SUCCESS, payload });
+export const editPatientFail = (payload: any) => ({ type: actionType.EDIT_PATIENT_FAIL, payload });

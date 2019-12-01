@@ -27,7 +27,8 @@ export const STATIC_ROUTE = {
   CLINIC_MANAGER: "/admin/clinic_manager",
   USER_MANAGER: "/admin/user_manager",
   RECEIVE_PATIENT: "/receptionist/receive_patient",
-  PENDING_MEDICAL: "/receptionist/pending_medical"
+  PENDING_MEDICAL: "/receptionist/pending_medical",
+  DOCTOR_MEDICAL: "/doctor_clinic/medical"
 };
 
 export const COMPLETED_MODE = "Completed";

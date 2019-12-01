@@ -1,5 +1,7 @@
 export const SAVE_SUCCESS = "Save successfully";
 export const CREATE_SUCCESS = "Create successfully";
+export const EDIT_SUCCESS = "Edit successfully";
+export const EDIT_FAIL = "Edit unsuccessful";
 export const CREATE_FAIL = "Create unsuccessful";
 export const DELETE_SUCCESS = "Delete successfully";
 export const ADD_USER_SUCCESS = "Add new user successfully";

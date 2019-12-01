@@ -18,7 +18,8 @@ import {
   CLINIC_MANAGER,
   USER_MANAGER,
   RECEIVE_PATIENT,
-  PENDING_MEDICAL
+  PENDING_MEDICAL,
+  MEDICAL
 } from "../common/const/menu";
 import "./leftSideBar.css";
 
@@ -63,6 +64,17 @@ export default class LeftSideBarComponent extends React.Component {
                       </NavLink>
                     </li>
                   </>
+                )}
+
+                {accountInfo.roleName === ROLE.DOCTORCLINIC && (
+                  <li>
+                    <NavLink to={STATIC_ROUTE.DOCTOR_MEDICAL} aria-current={true}>
+                      <i className="ti-home">
+                        <img src={iconPack} />
+                      </i>
+                      <span className="right-nav-text">{MEDICAL}</span>
+                    </NavLink>
+                  </li>
                 )}
 
                 <li>

@@ -14,6 +14,7 @@ import ClinicManager from "./app/Admin/ClinicManager/ClinicManager";
 import UserManager from "./app/Admin/UserManager/UserManager";
 import ReceivePatient from "./app/Receptionist/ReceivePatient/ReceivePatient";
 import PendingMedical from "./app/Receptionist/PendingMedical/PendingMedical";
+import Medical from "./app/DoctorClinic/Medical/index";
 
 class App extends React.Component {
   public token = "";
@@ -39,6 +40,8 @@ class App extends React.Component {
         <PrivateRoute path={STATIC_ROUTE.DEPARTMENT} component={Department} />
         <PrivateRoute path={STATIC_ROUTE.RECEIVE_PATIENT} component={ReceivePatient} />
         <PrivateRoute path={STATIC_ROUTE.PENDING_MEDICAL} component={PendingMedical} />
+        {/* kham benh */}
+        <PrivateRoute path={STATIC_ROUTE.DOCTOR_MEDICAL} component={Medical} />
         <Route path="/" component={SignIn} />
         <Route path={STATIC_ROUTE.LOGIN} component={SignIn} />
       </Switch>

@@ -12,22 +12,53 @@ import PatientListComponent from "./components/PatientListComponent";
 import { PatientState } from "./models/PatientState";
 import CreatePatientModalComponent from "./components/CreatePatientModalComponent";
 
+import PatientApi from "./PatientService";
+
 interface Props extends PatientState {
   isOpenModal: boolean;
   actions: typeof actionCreators;
   isLoading: boolean;
   history?: any;
   isOpenModalDelete: boolean;
+  isLoadingEdit: boolean;
+  isOpenModalEdit: boolean;
 }
 
-class Patient extends React.Component<Props, any> {
+type StatePatient = typeof initialState;
+
+const initialState = {
+  visible: false,
+  listClinic: [],
+  listCandidate: []
+};
+
+class Patient extends React.Component<Props, StatePatient> {
   constructor(props: any) {
     super(props);
-    this.state = { visible: false };
   }
+
+  state = initialState;
 
   componentDidMount() {
     this.onSearch("");
+    this.getListClinic();
+    this.getListCandidate();
+  }
+
+  patientApi = new PatientApi();
+
+  getListClinic = () => {
+    this.patientApi.getListClinic()
+      .toPromise()
+      .then((data: any) => {
+        this.setState({ listClinic: data.result });
+      });
+  }
+
+  getListCandidate = () => {
+    this.patientApi.getListCandidate().toPromise().then((data: any) => {
+      this.setState({ listCandidate: data.result });
+    });
   }
 
   showModal = () => {
@@ -82,8 +113,11 @@ class Patient extends React.Component<Props, any> {
       isLoading,
       actions,
       isOpenModal,
-      isOpenModalDelete
+      isOpenModalDelete,
+      isLoadingEdit,
+      isOpenModalEdit
     } = this.props;
+    const { listClinic, listCandidate } = this.state;
     return (
       <div>
         <div className="page-title">
@@ -108,6 +142,7 @@ class Patient extends React.Component<Props, any> {
               isOpenModal={isOpenModal}
               closeModal={this.closeModal}
               saveAction={this.createPatient}
+              listCandidate={listCandidate}
             ></CreatePatientModalComponent>
           </div>
         </div>
@@ -121,6 +156,10 @@ class Patient extends React.Component<Props, any> {
               patients={patients}
               isLoading={isLoading}
               isOpenModalDelete={isOpenModalDelete}
+              listClinic={listClinic}
+              isLoadingEdit={isLoadingEdit}
+              isOpenModalEdit={isOpenModalEdit}
+              listCandidate={listCandidate}
             />
           </div>
         </Spin>

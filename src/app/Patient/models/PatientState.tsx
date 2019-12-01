@@ -4,9 +4,11 @@ import { PatientItem } from "./PatientModel";
 
 export interface PatientState {
   isLoading?: boolean;
+  isLoadingEdit?: boolean;
   isOpenModal: boolean;
   pagination: PaginationState;
   isOpenModalDelete: boolean;
+  isOpenModalEdit: boolean;
   patients?: PatientItem[];
   searchRequest?: SearchBaseModel;
 }
