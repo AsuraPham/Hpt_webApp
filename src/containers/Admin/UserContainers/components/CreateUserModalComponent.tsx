@@ -160,7 +160,7 @@ class CreateUserModalComponent extends React.Component<
 
             <Form.Item label="Tên phòng">
               {getFieldDecorator("clinicId", {
-                rules: [{ required: true, message: REQUIRED }]
+                rules: [{ required: false, message: REQUIRED }]
               })(
                 <Select placeholder="Chọn phòng khám">
                   {listClinic.map((item: any) => {

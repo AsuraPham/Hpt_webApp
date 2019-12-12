@@ -23,6 +23,7 @@ export const STATIC_ROUTE = {
   HOME: "/home",
   LOGIN: "/login",
   MEDICINE: "/medicine",
+  PRESCRIPTION: "/prescrtion",
   SERVICES: "/services",
   CLINIC_MANAGER: "/admin/clinic_manager",
   USER_MANAGER: "/admin/user_manager",

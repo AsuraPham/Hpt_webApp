@@ -15,6 +15,7 @@ import UserManager from "./app/Admin/UserManager/UserManager";
 import ReceivePatient from "./app/Receptionist/ReceivePatient/ReceivePatient";
 import PendingMedical from "./app/Receptionist/PendingMedical/PendingMedical";
 import Medical from "./app/DoctorClinic/Medical/index";
+import PharmacistPrescription from "./containers/Pharmacist/Prescription";
 
 class App extends React.Component {
   public token = "";
@@ -32,6 +33,7 @@ class App extends React.Component {
         {/* new vesion */}
         <PrivateRoute path={STATIC_ROUTE.PATIENT} component={Patient} />
         <PrivateRoute path={STATIC_ROUTE.MEDICINE} component={Medicine} />
+        <PrivateRoute path={STATIC_ROUTE.PRESCRIPTION} component={PharmacistPrescription} />
         {/* admin */}
         <PrivateRoute path={STATIC_ROUTE.CLINIC_MANAGER} component={ClinicManager} />
         <PrivateRoute path={STATIC_ROUTE.USER_MANAGER} component={UserManager} />

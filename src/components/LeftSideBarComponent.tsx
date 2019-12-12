@@ -19,7 +19,8 @@ import {
   USER_MANAGER,
   RECEIVE_PATIENT,
   PENDING_MEDICAL,
-  MEDICAL
+  MEDICAL,
+  PRESCRIPTION
 } from "../common/const/menu";
 import "./leftSideBar.css";
 
@@ -86,15 +87,25 @@ export default class LeftSideBarComponent extends React.Component {
                   </NavLink>
                 </li>
 
-                {accountInfo.roleName === ROLE.PHARMACIST && (
-                  <li>
-                    <NavLink to={STATIC_ROUTE.MEDICINE}>
-                      <i className="ti-home">
-                        <img src={iconPack} />
-                      </i>
-                      <span className="right-nav-text">{MEDICINE}</span>
-                    </NavLink>
-                  </li>
+                {accountInfo.roleName === ROLE.PHARMACIST || accountInfo.roleName === ROLE.DOCTORCLINIC && (
+                  <>
+                    <li>
+                      <NavLink to={STATIC_ROUTE.MEDICINE}>
+                        <i className="ti-home">
+                          <img src={iconPack} />
+                        </i>
+                        <span className="right-nav-text">{MEDICINE}</span>
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to={STATIC_ROUTE.PRESCRIPTION}>
+                        <i className="ti-home">
+                          <img src={iconPack} />
+                        </i>
+                        <span className="right-nav-text">{PRESCRIPTION}</span>
+                      </NavLink>
+                    </li>
+                  </>
                 )}
 
                 {accountInfo.roleName === ROLE.ADMIN && (

@@ -12,3 +12,4 @@ export const USER_MANAGER = "Quản lý người dùng";
 export const RECEIVE_PATIENT = "Tiếp nhận";
 export const PENDING_MEDICAL = "Danh sách chờ khám";
 export const MEDICAL = "Khám bệnh";
+export const PRESCRIPTION = "Danh sách nhận thuốc";
