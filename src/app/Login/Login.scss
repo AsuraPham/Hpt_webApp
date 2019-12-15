@@ -10,6 +10,10 @@ body {
   background: #29a9ff;
   height: 100%;
   text-align: center !important;
+  background-image: url("../../img/logo/login.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   
 }
 .img{
@@ -53,6 +57,7 @@ body {
   margin: auto;
   background: #ffffff;
   border-radius: 10px;
+  margin-top: 150px;
 }
 @media(max-width: 767.98px) {
   .img{
