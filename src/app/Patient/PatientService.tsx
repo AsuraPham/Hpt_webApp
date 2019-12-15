@@ -19,4 +19,25 @@ export default class PatientServices {
     }
     return ajax.getJSON(`${api}/Patient?${param}`, headers());
   }
+
+  static deletePatient(patientId: any) {
+    return ajax.delete(`${api}/Patient/${patientId}`, headers());
+  }
+
+  static editPatient(request: any) {
+    return ajax.put(`${api}/Patient`, request, headers());
+  }
+
+  getListClinic() {
+    return ajax.getJSON(`${api}/Clinic/get-list`, headers());
+  }
+
+  createPendingMedical(request: any) {
+    return ajax.post(`${api}/PendingMedicalBill`, request, headers());
+  }
+
+  getListCandidate() {
+    return ajax.getJSON(`${api}/Candidate/get-list`, headers());
+  }
+
 }

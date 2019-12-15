@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "antd";
+import { Table, Divider } from "antd";
 import Search from "antd/lib/input/Search";
 import { ColumnProps } from "antd/lib/table";
 
@@ -10,6 +10,7 @@ import { PaginationState } from "../../../common/models/Pagination";
 import { SortModel } from "../../../common/models/SearchBaseModel";
 
 import * as actionCreators from "../MedicineAction";
+import DeleteModalComponent from "../../../common/components/DeleteModalComponent";
 
 type Props = {
   medicines?: any[];
@@ -19,6 +20,7 @@ type Props = {
   sort?: SortModel;
   actions: typeof actionCreators;
   isLoading?: boolean;
+  isOpenModalDelete: boolean;
 };
 export default class MedicineistComponent extends React.Component<Props, any> {
   columns: ColumnProps<any>[] = [
@@ -82,6 +84,23 @@ export default class MedicineistComponent extends React.Component<Props, any> {
       dataIndex: "quantityExists",
       key: "quantityExists",
       width: 150
+    },
+    {
+      title: "",
+      className: "text-center",
+      width: 30,
+      render: (text, record) => (
+        <div key={text} className="dropleft">
+          <a id="dropdownMenuButton" data-toggle="dropdown" >
+            <i className="fa fa-ellipsis-v"></i>
+          </a>
+          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a className="dropdown-item">Sửa</a>
+            <Divider type="horizontal" />
+            <a className="dropdown-item" onClick={() => { this.showModalDelete(record); }}>Xoá</a>
+          </div>
+        </div>
+      ),
     }
 
   ];
@@ -93,12 +112,24 @@ export default class MedicineistComponent extends React.Component<Props, any> {
     };
   }
 
+  showModalDelete = (record) => {
+    const { actions } = this.props;
+    this.setState({ selected: record });
+    actions.openCloseModel({ isOpenModalDelete: true });
+  }
+
+  deleteUser = () => {
+    const { actions } = this.props;
+    actions.deleteMedicine(this.state.selected.id);
+  }
+
   closeModal = object => {
-    this.props.actions.openCloseModel(object);
+    const { actions } = this.props;
+    actions.openCloseModel(object);
   }
 
   render() {
-    const { medicines, pagination, handleTableChange } = this.props;
+    const { medicines, pagination, handleTableChange, isLoading, isOpenModalDelete } = this.props;
     return (
       <div className="mb-30 col">
         <div className="card-statistics h-100 card">
@@ -124,10 +155,19 @@ export default class MedicineistComponent extends React.Component<Props, any> {
                 dataSource={medicines}
                 pagination={pagination}
                 onChange={handleTableChange}
+                rowKey="id"
               />
             </div>
           </div>
         </div>
+
+        <DeleteModalComponent
+          delete={this.deleteUser}
+          isLoading={isLoading}
+          isOpenModalDelete={isOpenModalDelete}
+          closeModal={this.closeModal}
+          message={"Bạn có chắc chắn muốn xoá loại thuốc này?"}
+        ></DeleteModalComponent>
       </div>
     );
   }

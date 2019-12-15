@@ -3,7 +3,7 @@ import { toastr } from "react-redux-toastr";
 
 import { handleApiError } from "../../common/handleApiError";
 import { GetPagination } from "../../common/models/Pagination";
-import { CREATE_SUCCESS, CREATE_FAIL } from "../../common/const/message";
+import { CREATE_SUCCESS, CREATE_FAIL, DELETE_SUCCESS } from "../../common/const/message";
 import CommonResponse from "../../common/models/CommonResponse";
 import { PAGE_SIZE } from "../../common/Constants";
 
@@ -47,8 +47,22 @@ const createMedicineEpic = (action$: any) =>
       .catch(error => handleApiError(error));
   });
 
+const deleteMedicineEpic = (action$: any) => action$.ofType(actionType.DELETE_MEDICINE).mergeMap((action: any) => {
+  let request = action.payload;
+  return MedicineService.deleteMedicine(request)
+    .map((result: any) => {
+      let response = result.response;
+      if (!response.hasErrors) {
+        toastr.success("", DELETE_SUCCESS);
+        return medicineAction.deleteMedicineSuccess(response);
+      } else {
+        return medicineAction.deleteMedicineFail(response);
+      }
+    }).catch(error => handleApiError(error));
+});
+
 const saveSuccessEpic = (action$: any, store) =>
-  action$.ofType(actionType.CREATE_MEDICINE_SUCCESS).mergeMap(() => {
+  action$.ofType(actionType.CREATE_MEDICINE_SUCCESS, actionType.DELETE_MEDICINE_SUCCESS).mergeMap(() => {
     let state: MedicineState = store.getState().medicineState;
     const searchReq = {
       pageIndex: state.pagination ? state.pagination.current : 1,
@@ -61,5 +75,6 @@ const saveSuccessEpic = (action$: any, store) =>
 export const medicineEpics = combineEpics(
   createMedicineEpic,
   getMedicineListEpic,
+  deleteMedicineEpic,
   saveSuccessEpic
 );

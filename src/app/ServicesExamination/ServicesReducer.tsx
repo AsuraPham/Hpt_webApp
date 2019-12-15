@@ -46,6 +46,17 @@ export default createReducer(initialState, {
   [actionType.CREATE_SERVICES_FAIL]: (state: ServicesState) => {
     return { ...state, isLoading: false };
   },
+
+  // delete
+  [actionType.DELETE_SERVICES]: (state: ServicesState) => {
+    return { ...state, isLoading: false };
+  },
+  [actionType.DELETE_SERVICES_SUCCESS]: (state: ServicesState) => {
+    return { ...state, isLoading: false, isOpenModalDelete: false };
+  },
+  [actionType.DELETE_SERVICES_FAIL]: (state: ServicesState) => {
+    return { ...state, isLoading: false };
+  },
   [actionType.SERVICES_OPEN_CLOSE_MODAL]: (
     state: ServicesState,
     payload

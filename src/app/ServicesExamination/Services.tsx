@@ -17,6 +17,7 @@ interface Props extends ServicesState {
   actions: typeof actionCreators;
   isLoading?: boolean;
   history?: any;
+  isOpenModalDelete: boolean;
 }
 
 class Services extends React.Component<Props, any> {
@@ -80,7 +81,8 @@ class Services extends React.Component<Props, any> {
       pagination,
       services,
       isLoading,
-      actions
+      actions,
+      isOpenModalDelete
     } = this.props;
     return (
       <div>
@@ -118,6 +120,7 @@ class Services extends React.Component<Props, any> {
               onSearch={this.onSearch}
               services={services}
               isLoading={isLoading}
+              isOpenModalDelete={isOpenModalDelete}
             />
           </div>
         </Spin>

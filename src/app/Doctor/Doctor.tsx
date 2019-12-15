@@ -19,6 +19,7 @@ interface Props extends DoctorState {
   actions: typeof actionCreators;
   isLoading: boolean;
   history?: any;
+  isOpenModalDelete: boolean;
 }
 
 type StateDoctor = typeof initialState;
@@ -96,7 +97,7 @@ class Doctor extends React.Component<Props, StateDoctor> {
   }
 
   render() {
-    const { pagination, doctors, isLoading, actions, isOpenModal } = this.props;
+    const { pagination, doctors, isLoading, actions, isOpenModal, isOpenModalDelete } = this.props;
     const { listDepartment } = this.state;
     return (
       <div>
@@ -135,6 +136,7 @@ class Doctor extends React.Component<Props, StateDoctor> {
               onSearch={this.onSearch}
               doctors={doctors}
               isLoading={isLoading}
+              isOpenModalDelete={isOpenModalDelete}
             />
           </div>
         </Spin>

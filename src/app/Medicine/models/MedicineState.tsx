@@ -5,6 +5,7 @@ import { SearchBaseModel } from "../../../common/models/SearchBaseModel";
 export interface MedicineState {
   isLoading?: boolean;
   isLoadingCreate?: boolean;
+  isOpenModalDelete?: boolean;
   isOpenModal?: boolean;
   pagination: PaginationState;
   medicines?: MedicineItem[];

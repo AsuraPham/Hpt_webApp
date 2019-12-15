@@ -7,6 +7,7 @@ import { GLOBAL_SERVER_ERROR } from "../../actionTypes";
 const initialState: PatientState = {
   isLoading: false,
   isOpenModal: false,
+  isLoadingEdit: false,
   pagination: {
     current: 1,
     pageSize: PAGE_SIZE,
@@ -16,6 +17,8 @@ const initialState: PatientState = {
     pageIndex: 1,
     pageSize: PAGE_SIZE
   },
+  isOpenModalDelete: false,
+  isOpenModalEdit: false,
   patients: []
 };
 export default createReducer(initialState, {
@@ -46,6 +49,29 @@ export default createReducer(initialState, {
   [actionType.CREATE_PATIENT_FAIL]: (state: PatientState) => {
     return { ...state, isLoading: false };
   },
+
+  // delete
+  [actionType.DELETE_PATIENT]: (state: PatientState) => {
+    return { ...state, isLoading: false };
+  },
+  [actionType.DELETE_PATIENT_SUCCESS]: (state: PatientState) => {
+    return { ...state, isLoading: false, isOpenModalDelete: false };
+  },
+  [actionType.DELETE_PATIENT_FAIL]: (state: PatientState) => {
+    return { ...state, isLoading: false };
+  },
+
+  // edit
+  [actionType.EDIT_PATIENT]: (state: PatientState) => {
+    return { ...state, isLoadingEdit: true };
+  },
+  [actionType.EDIT_PATIENT_SUCCESS]: (state: PatientState) => {
+    return { ...state, isOpenModalEdit: false, isLoadingEdit: false };
+  },
+  [actionType.EDIT_PATIENT_FAIL]: (state: PatientState) => {
+    return { ...state, isLoadingEdit: false };
+  },
+
   [actionType.PATIENT_OPEN_CLOSE_MODAL]: (state: PatientState, payload) => {
     return { ...state, ...payload };
   },

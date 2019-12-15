@@ -8,6 +8,7 @@ const initialState: MedicineState = {
   isLoading: false,
   isLoadingCreate: false,
   isOpenModal: false,
+  isOpenModalDelete: false,
   pagination: {
     current: 1,
     pageSize: PAGE_SIZE,
@@ -47,6 +48,18 @@ export default createReducer(initialState, {
   [actionType.CREATE_MEDICINE_FAIL]: (state: MedicineState) => {
     return { ...state, isLoading: false };
   },
+
+  // delete
+  [actionType.DELETE_MEDICINE]: (state: MedicineState) => {
+    return { ...state, isLoading: false };
+  },
+  [actionType.DELETE_MEDICINE_SUCCESS]: (state: MedicineState) => {
+    return { ...state, isLoading: false, isOpenModalDelete: false };
+  },
+  [actionType.DELETE_MEDICINE_FAIL]: (state: MedicineState) => {
+    return { ...state, isLoading: false };
+  },
+
   [actionType.MEDICINE_OPEN_CLOSE_MODAL]: (
     state: MedicineState,
     payload

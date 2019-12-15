@@ -1,5 +1,7 @@
 export const SAVE_SUCCESS = "Save successfully";
 export const CREATE_SUCCESS = "Create successfully";
+export const EDIT_SUCCESS = "Edit successfully";
+export const EDIT_FAIL = "Edit unsuccessful";
 export const CREATE_FAIL = "Create unsuccessful";
 export const DELETE_SUCCESS = "Delete successfully";
 export const ADD_USER_SUCCESS = "Add new user successfully";
@@ -16,3 +18,6 @@ export const UPDATE_FIRMWARE_SUCCESS = "Update firmware successfully";
 export const REQUIRED = "Mời nhập thông tin!";
 export const EMAIL_NOT_VALID = "Địa chỉ email không hợp lệ!";
 export const SELECT_DATE = "Mời chọn ngày tháng!";
+
+export const SIGNIN_ERROR = "Đăng nhập không thành công";
+export const SIGNIN_SUCCESS = "Đăng nhập thành công";

@@ -16,4 +16,8 @@ export default class ServicesServices {
     }
     return ajax.getJSON(`${api}/ServicesExamination?${param}`, headers());
   }
+
+  static deleteServices(servicesId: any) {
+    return ajax.delete(`${api}/ServicesExamination/${servicesId}`, headers());
+  }
 }

@@ -7,9 +7,7 @@ export const iconAdd = require("../../img/icon/add.svg");
 export const iconHelp = require("../../img/icon/help.svg");
 export const iconBack = require("../../img/icon/left-arrow.svg");
 //
-export const logo = require("../../img/nav/logo@3x.png");
-export const avatar = require("../../img/nav/logoWaggle.png");
-export const logoSmall = require("../../img/logo/bottom_waggle_active.png");
+export const avatar = require("../../img/avt/doctor.jpeg");
 export const bell = require("../../img/nav/icon-bell-notification.png");
 export const menuic = require("../../img/nav/menu-ic.png");
 //
@@ -20,7 +18,6 @@ export const refresh = require("../../img/icon/refresh.svg");
 export const icondelete = require("../../img/icon/delete.svg");
 export const iconSave = require("../../img/icon/save-cloud.svg");
 //
-export const signIn = require("../../img/logo/logo.png");
 export const checked = require("../../img/icon/checked.svg");
 export const disChecked = require("../../img/icon/dis-checked.svg");
 export const defaultImage = require("../../img/device-default.png");

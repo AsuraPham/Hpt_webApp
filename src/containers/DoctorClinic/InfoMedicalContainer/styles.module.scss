@@ -1,0 +1,28 @@
+.container {
+  padding: 15px;
+}
+
+.cardTitle {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eeeeee;
+  padding-bottom: 1rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.textInfo {
+  font-size: 14px;
+}
+
+.tableCaseRecord .ant-table-row{
+  cursor: pointer;
+  
+}
+
+.isActive {
+  background: #2ba8ff;
+}
+
+.ant-notification {
+  z-index: 2000 !important;
+}

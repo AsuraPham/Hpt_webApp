@@ -16,4 +16,8 @@ export default class DepartmentServices {
     }
     return ajax.getJSON(`${api}/Department?${param}`, headers());
   }
+
+  static deleteDepartment(departmentId: any) {
+    return ajax.delete(`${api}/Department/${departmentId}`, headers());
+  }
 }

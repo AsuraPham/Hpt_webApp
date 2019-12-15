@@ -20,19 +20,17 @@ export const STATIC_ROUTE = {
   DEPARTMENT: "/department",
   PATIENT: "/patient",
   DOCTOR: "/doctor",
-  NOTIFICATION_DETAIL: "/notification/:id",
-  NOTIFICATION: "/notification",
   HOME: "/home",
   LOGIN: "/login",
   MEDICINE: "/medicine",
-  SERVICES: "/services"
+  PRESCRIPTION: "/prescrtion",
+  SERVICES: "/services",
+  CLINIC_MANAGER: "/admin/clinic_manager",
+  USER_MANAGER: "/admin/user_manager",
+  RECEIVE_PATIENT: "/receptionist/receive_patient",
+  PENDING_MEDICAL: "/receptionist/pending_medical",
+  DOCTOR_MEDICAL: "/doctor_clinic/medical"
 };
-
-export const DEVICE_MIN_NAME = 5;
-export const MIN_NAME = 3;
-export const MAX_NAME = 25;
-export const MIN_RAK_CODE_CHARACTERS = 10;
-export const MAX_RAK_CODE_CHARACTERS = 75;
 
 export const COMPLETED_MODE = "Completed";
 export const TIME_UP_MODE = "Time is up";
@@ -42,3 +40,12 @@ export const MODAL_POPUP_TYPE = {
   ALERT: "alert"
 };
 export const DO_NOT_HAVE_PERMISSION = "Sorry, you don not have permission";
+
+export const ROLE = {
+  ADMIN: "Admin",
+  PHARMACIST: "Pharmacist",  // Duoc si
+  RECEPTIONIST: "Receptionist",  // le tan
+  SUBCLINICARESULT: "SubclinicalResult", // phong can lam san
+  DOCTORCLINIC: "DoctorClinic",
+  ACCOUNTANT: "Accountant"
+};

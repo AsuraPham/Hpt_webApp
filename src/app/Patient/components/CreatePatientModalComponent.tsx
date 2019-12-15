@@ -16,7 +16,7 @@ import {
   EMAIL_NOT_VALID,
   SELECT_DATE
 } from "../../../common/const/message";
-import { DATE_FORMAT_DD_MM_YYY } from "../../../common/Constants";
+import { DEFAULT_DATE_FORMAT } from "../../../common/Constants";
 import { BloodGroup, ListFolk } from "../../../common/const/enum";
 
 const { Option } = Select;
@@ -26,6 +26,7 @@ interface Props {
   isOpenModal: boolean;
   saveAction?: any;
   closeModal?: any;
+  listCandidate: [];
 }
 class CreatePatientModalComponent extends React.Component<
   Props & FormComponentProps
@@ -49,7 +50,7 @@ class CreatePatientModalComponent extends React.Component<
   }
 
   render() {
-    const { isOpenModal, isLoading } = this.props;
+    const { isOpenModal, isLoading, listCandidate } = this.props;
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: {
@@ -102,7 +103,31 @@ class CreatePatientModalComponent extends React.Component<
               {getFieldDecorator("dateOfBirth", config)(
                 <DatePicker
                   placeholder="Chọn ngày sinh"
-                  format={DATE_FORMAT_DD_MM_YYY}
+                  format={DEFAULT_DATE_FORMAT}
+                />
+              )}
+            </Form.Item>
+
+            <Form.Item label="Mã BHYT">
+              {getFieldDecorator("codeHealthInsurance", {
+                rules: [{ required: true, message: REQUIRED }]
+              })(<Input placeholder="Nhập mã bảo hiểm y tế" />)}
+            </Form.Item>
+
+            <Form.Item label="Ngày Cấp BHYT">
+              {getFieldDecorator("dateOfSupplyHealth", config)(
+                <DatePicker
+                  placeholder="Chọn ngày cấp"
+                  format={DEFAULT_DATE_FORMAT}
+                />
+              )}
+            </Form.Item>
+
+            <Form.Item label="Ngày hết hạn BHYT">
+              {getFieldDecorator("expirationDateHealth", config)(
+                <DatePicker
+                  placeholder="Chọn ngày hết hạn"
+                  format={DEFAULT_DATE_FORMAT}
                 />
               )}
             </Form.Item>
@@ -123,6 +148,12 @@ class CreatePatientModalComponent extends React.Component<
               {getFieldDecorator("address", {
                 rules: [{ required: true, message: REQUIRED }]
               })(<TextArea placeholder="Nhập địa chỉ" />)}
+            </Form.Item>
+
+            <Form.Item label="Nghề nghiệp">
+              {getFieldDecorator("profession", {
+                rules: [{ required: true, message: REQUIRED }]
+              })(<Input placeholder="Nhập nghề nghiệp" />)}
             </Form.Item>
 
             <Form.Item label="Số điện thoại">
@@ -156,9 +187,25 @@ class CreatePatientModalComponent extends React.Component<
               )}
             </Form.Item>
 
+            <Form.Item label="Đối tượng">
+              {getFieldDecorator("candidateId", {
+                rules: [{ required: false, message: REQUIRED }]
+              })(
+                <Select placeholder="Chọn đối tượng">
+                  {listCandidate.map((item: any) => {
+                    return (
+                      <Option value={item.id} key={item.id}>
+                        {item.name}
+                      </Option>
+                    );
+                  })}
+                </Select>
+              )}
+            </Form.Item>
+
             <Form.Item label="Nhóm máu">
               {getFieldDecorator("bloodGroup", {
-                rules: [{ required: true, message: REQUIRED }]
+                rules: [{ required: false, message: REQUIRED }]
               })(
                 <Select placeholder="Chọn một nhóm máu">
                   {BloodGroup.map(item => {

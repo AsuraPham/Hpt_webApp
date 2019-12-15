@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 
 import { handleApiError } from "../../common/handleApiError";
 import { GetPagination } from "../../common/models/Pagination";
-import { CREATE_SUCCESS, CREATE_FAIL } from "../../common/const/message";
+import { CREATE_SUCCESS, CREATE_FAIL, DELETE_SUCCESS, EDIT_FAIL, SAVE_SUCCESS } from "../../common/const/message";
 import CommonResponse from "../../common/models/CommonResponse";
 import { PAGE_SIZE } from "../../common/Constants";
 
@@ -47,8 +47,38 @@ const createPatientEpic = (action$: any) =>
       .catch(error => handleApiError(error));
   });
 
+const editPatientEpic = (action$: any) =>
+  action$.ofType(actionType.EDIT_PATIENT).mergeMap((action: any) => {
+    return PatientService.editPatient(action.payload)
+      .map((result: any) => {
+        let response = result.response;
+        if (!response.hasErrors) {
+          toastr.success("", SAVE_SUCCESS);
+          return patientAction.editPatientSuccess(response.result);
+        } else {
+          toastr.error("", EDIT_FAIL);
+          return patientAction.editPatientFail(response);
+        }
+      })
+      .catch(error => handleApiError(error));
+  });
+
+const deletePatientEpic = (action$: any) => action$.ofType(actionType.DELETE_PATIENT).mergeMap((action: any) => {
+  let request = action.payload;
+  return PatientService.deletePatient(request)
+    .map((result: any) => {
+      let response = result.response;
+      if (!response.hasErrors) {
+        toastr.success("", DELETE_SUCCESS);
+        return patientAction.deletePatientSuccess(response);
+      } else {
+        return patientAction.deletePatientFail(response);
+      }
+    }).catch(error => handleApiError(error));
+});
+
 const saveSuccessEpic = (action$: any, store) =>
-  action$.ofType(actionType.CREATE_PATIENT_SUCCESS).mergeMap(() => {
+  action$.ofType(actionType.CREATE_PATIENT_SUCCESS, actionType.DELETE_PATIENT_SUCCESS, actionType.EDIT_PATIENT_SUCCESS).mergeMap(() => {
     let state: PatientState = store.getState().patientState;
     const searchReq = {
       pageIndex: state.pagination ? state.pagination.current : 1,
@@ -61,5 +91,7 @@ const saveSuccessEpic = (action$: any, store) =>
 export const patientEpics = combineEpics(
   createPatientEpic,
   getPatientListEpic,
-  saveSuccessEpic
+  saveSuccessEpic,
+  editPatientEpic,
+  deletePatientEpic
 );
