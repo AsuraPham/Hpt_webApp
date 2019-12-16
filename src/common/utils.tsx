@@ -1,4 +1,3 @@
-import { PASSWORD_MUST_FOLLOW_FORMAT } from "./components/messagePage/const";
 import { DEFAULT_DATE_FORMAT, DEFAULT_DATE_TIME_FORMAT } from "./Constants";
 const momnent = require("moment");
 export function createReducer(initialState: any, reducerMap: object) {
@@ -30,22 +29,6 @@ export function isMobileNumber(mobileNumber: string) {
 }
 export function removeSpacesString(mobileNumber: string) {
   return mobileNumber.replace(/\s/g, "");
-}
-
-export function getResultvalidatePassword(dataValidate: any[], password: string) {
-  let isPasswordFormatError = "";
-  let dataUpdate = dataValidate.map(function (item: any, index: number) {
-    const reg = item.rule;
-    item.isValid = reg.test(password);
-    if (!isPasswordFormatError && !item.isValid) {
-      isPasswordFormatError = PASSWORD_MUST_FOLLOW_FORMAT;
-    }
-    return item;
-  });
-  return {
-    isPasswordFormatError: isPasswordFormatError,
-    dataUpdate: dataUpdate
-  };
 }
 
 export function convertFileSize(bytes: any) {
