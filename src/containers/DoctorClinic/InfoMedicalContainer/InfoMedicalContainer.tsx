@@ -7,7 +7,7 @@ import InfoMedicalApi from "./InfoMedicalServices";
 import { PAGE_SIZE, ACCOUNT_INFO, DEFAULT_DATE_FORMAT } from "../../../common/Constants";
 import { GetPagination } from "../../../common/models/Pagination";
 import { ERROR } from "../../../common/components/messages";
-import { Form, Input, Button, DatePicker, Spin } from "antd";
+import { Form, Input, Button, DatePicker, Spin, Modal } from "antd";
 import { FormComponentProps } from "antd/lib/form";
 import moment from "moment";
 
@@ -18,8 +18,10 @@ import { get } from "lodash";
 
 interface Props {
   patientInfo?: any;
+  onRemove?: any;
 }
 
+const { confirm } = Modal;
 class InfoMedicalContainer extends React.Component<Props & FormComponentProps> {
 
   columns: ColumnProps<any>[] = [
@@ -127,6 +129,7 @@ class InfoMedicalContainer extends React.Component<Props & FormComponentProps> {
 
   rederCaseRecord = () => {
     const { listCaseRecords, pagination, selectedCase } = this.state;
+    const { patientInfo } = this.props;
     return (
       <>
         <div className="cardTitle mt-20">Danh sách bệnh án</div>
@@ -142,14 +145,16 @@ class InfoMedicalContainer extends React.Component<Props & FormComponentProps> {
           onChange={this.tableChange}
           rowKey="id"
         />
-        <div className="text-center">
-          <Button type="primary" key="submit" style={{ width: "unset" }} onClick={this.onSubmit}>
-            Lập bệnh án
+        {patientInfo.status !== 2 && (
+          <div className="text-center">
+            <Button type="primary" key="submit" style={{ width: "unset" }} onClick={this.onSubmit}>
+              Lập bệnh án
           </Button>
-          <Button type="primary" className="ml-10" style={{ width: "unset" }} onClick={this.onClickMedicalDone}>
-            Hoàn tất khám
+            <Button type="primary" className="ml-10" style={{ width: "unset" }} onClick={this.onClickMedicalDone}>
+              Hoàn tất khám
           </Button>
-        </div>
+          </div>
+        )}
       </>
     );
 
@@ -221,7 +226,19 @@ class InfoMedicalContainer extends React.Component<Props & FormComponentProps> {
   }
 
   onClickMedicalDone = () => {
-    // 
+    const { patientInfo } = this.props;
+    confirm({
+      title: `Bạn có muốn hoàn tất khám cho bệnh nhân ${patientInfo.patientName}?`,
+      content: "Hãy chắc chắn đã hoàn thành đủ quy trình",
+      onOk: () => this.handlechangeStatusPendingMedical()
+    });
+  }
+
+  handlechangeStatusPendingMedical = () => {
+    const { patientInfo, onRemove } = this.props;
+    this.infoMedicalApi.changeStatusPendingMedical(patientInfo.id, 2).toPromise().then((data: any) => {
+      onRemove();
+    });
   }
 
   render() {

@@ -31,6 +31,10 @@ class PendingMedicalContainers extends React.Component<Props, StatePendingMedica
 
   componentDidMount() {
     this.onSearch("");
+    setInterval(() => {
+      this.onSearch("");
+      // tslint:disable-next-line:align  10p call api 1 lan
+    }, 600000);
   }
 
   state = initialState;

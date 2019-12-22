@@ -11,7 +11,7 @@ export default class Medical extends React.Component<any, any> {
     this.newTabIndex = 0;
     const panes = [{
       title: "Danh sách khám",
-      content: < MedicalContainer onAdd={this.add} />,
+      content: <MedicalContainer onAdd={this.add} />,
       key: "1",
       closable: false,
     }];
@@ -25,7 +25,7 @@ export default class Medical extends React.Component<any, any> {
     const { panes } = this.state;
     const activeKey = `newTab${this.newTabIndex++}`;
     panes.push({
-      title: "Khám bệnh", content: <InfoMedicalContainer patientInfo={record} />, key: activeKey
+      title: "Khám bệnh", content: <InfoMedicalContainer patientInfo={record} onRemove={this.handleRemoveTab} />, key: activeKey
     });
     this.setState({ panes, activeKey });
   }
@@ -36,6 +36,12 @@ export default class Medical extends React.Component<any, any> {
 
   onEdit = (targetKey, action) => {
     this[action](targetKey);
+  }
+
+  handleRemoveTab = () => {
+    const { activeKey } = this.state;
+    this.remove(activeKey);
+    this.onChange("1");
   }
 
   remove = targetKey => {

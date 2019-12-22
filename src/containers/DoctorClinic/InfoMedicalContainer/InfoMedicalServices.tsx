@@ -15,4 +15,9 @@ export default class InfoMedicalServices {
     param = `${param}&sortField=createAt&isAsc=false`;
     return ajax.getJSON(`${api}/CaseRecord?patientId=${patientId}&${param}`, headers());
   }
+
+  // change status danh sach kham => khi hoan tat kham chuyen status == 2
+  changeStatusPendingMedical(id: number, status: number) {
+    return ajax.put(`${api}/PendingMedicalBill/ChangeStatus/${id}?status=${status}`);
+  }
 }

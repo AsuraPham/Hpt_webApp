@@ -61,11 +61,7 @@ export default class MedicalContainer extends React.Component<Props, any> {
     {
       title: "",
       width: 50,
-      render: (text, record) => (
-        <Button key={text} style={{ width: "unset" }}
-          type={record.status === 0 ? "primary" : "danger"} onClick={() => { this.addRecord(record); }}>
-          {record.status === 0 ? "Khám" : "Đang Khám"}</Button>
-      ),
+      render: (text, record) => this.renderButton(text, record),
     }
   ];
 
@@ -89,6 +85,10 @@ export default class MedicalContainer extends React.Component<Props, any> {
 
   componentDidMount() {
     this.onSearch("");
+    setInterval(() => {
+      this.onSearch("");
+      // tslint:disable-next-line:align  10p call api 1 lan
+    }, 600000);
   }
 
   addRecord = (record) => {
@@ -121,6 +121,24 @@ export default class MedicalContainer extends React.Component<Props, any> {
     this.pendingMedicalApi.getListPendingByClinicId(request, accountInfo.clinicId).toPromise().then((data: any) => {
       this.setState({ pendingMedicals: data.result, pagination: GetPagination(data.meta), isLoading: false });
     });
+  }
+
+  renderButton = (text, record) => {
+    if (record.status === 0) {
+      return (
+        <Button key={text} style={{ width: "unset" }}
+          type="primary" onClick={() => { this.addRecord(record); }}>Khám</Button>
+      );
+    }
+    if (record.status === 1) {
+      return (
+        <Button key={text} style={{ width: "unset" }}
+          type="danger" onClick={() => { this.addRecord(record); }}>Đang khám</Button>
+      );
+    }
+    return (
+      <Button key={text} style={{ width: "unset" }} onClick={() => { this.addRecord(record); }}>Đã khám</Button>
+    );
   }
 
   renderListPendingMedical = () => {

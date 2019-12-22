@@ -140,7 +140,7 @@ export default class LeftSideBarComponent extends React.Component {
                     <li>
                       <NavLink to={STATIC_ROUTE.USER_MANAGER}>
                         <i className="ti-home">
-                          <img src={iconPack} />
+                          <Icon type="user" />
                         </i>
                         <span className="right-nav-text">{USER_MANAGER}</span>
                       </NavLink>
@@ -148,7 +148,7 @@ export default class LeftSideBarComponent extends React.Component {
                     <li>
                       <NavLink to={STATIC_ROUTE.SERVICES}>
                         <i className="ti-home">
-                          <img src={iconPack} />
+                          <Icon type="container" />
                         </i>
                         <span className="right-nav-text">{SERVICE}</span>
                       </NavLink>
