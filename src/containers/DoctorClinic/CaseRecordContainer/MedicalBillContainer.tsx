@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Select, Button, Spin } from "antd";
+import { Form, Input, Select, Button, Spin, Popconfirm } from "antd";
 import { FormComponentProps } from "antd/lib/form";
 import Table, { ColumnProps } from "antd/lib/table";
 import TextArea from "antd/lib/input/TextArea";
@@ -35,6 +35,17 @@ class MedicalBillContainer extends React.Component<Props & FormComponentProps> {
       key: "servicesExamination.price",
       render: (text, record: any) => formatPrice(record.servicesExamination.price, "VND"),
       width: 50
+    },
+    {
+      title: "",
+      className: "text-right",
+      width: 10,
+      render: (text, record) => (
+        <Popconfirm title="Bạn có muốn xoá" okText="Có" cancelText="Không" onConfirm={() => this.deleteMedicalBillDetails(record)}
+        >
+          <a href="#">Xoá</a>
+        </Popconfirm>
+      ),
     }
   ];
 
@@ -141,7 +152,7 @@ class MedicalBillContainer extends React.Component<Props & FormComponentProps> {
     this.setState({ subclinicSelected: record });
   }
 
-  renderTableSubclinicResult = () => {
+  renderTableMedicalBillDetails = () => {
     const { listMedicalBillDetails } = this.state;
     return (
       <Table
@@ -151,7 +162,7 @@ class MedicalBillContainer extends React.Component<Props & FormComponentProps> {
         className="mb-30 mt-20 tableCaseRecord"
         columns={this.columns}
         dataSource={listMedicalBillDetails}
-        rowKey="id"
+        rowKey="index"
         pagination={false}
       />
     );
@@ -239,7 +250,12 @@ class MedicalBillContainer extends React.Component<Props & FormComponentProps> {
         </Button>
       </div>
     );
+  }
 
+  deleteMedicalBillDetails = (record) => {
+    this.caseRecordApi.deleteMedicalBillDetails(record.servicesExaminationId, record.medicalBillId).toPromise().then((data: any) => {
+      this.getListMedicalBillDetails();
+    });
   }
 
   render() {
@@ -250,7 +266,7 @@ class MedicalBillContainer extends React.Component<Props & FormComponentProps> {
           <div className="container">
             <div className="cardTitle">Kết luận</div>
             {this.updateMedicalBill()}
-            {this.renderTableSubclinicResult()}
+            {this.renderTableMedicalBillDetails()}
             {this.renderButton()}
           </div>
         </div>

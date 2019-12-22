@@ -1,10 +1,12 @@
 import React from "react";
-import { Form, Input, Button, Spin } from "antd";
+import { Form, Input, Button, Spin, Popconfirm } from "antd";
 import { FormComponentProps } from "antd/lib/form";
 import Table, { ColumnProps } from "antd/lib/table";
 import TextArea from "antd/lib/input/TextArea";
 import { get, isEmpty } from "lodash";
 import { toastr } from "react-redux-toastr";
+
+import AddMedicineModal from "./AddMedicine";
 
 import CaseRecordApi from "./CaseRecordServices";
 import { ERROR, SUCCESS } from "../../../common/components/messages";
@@ -25,28 +27,39 @@ class PresciptionContainer extends React.Component<Props & FormComponentProps> {
     },
     {
       title: "Tên thuốc",
-      dataIndex: "servicesExamination.serviceName",
-      key: "servicesExamination.serviceName",
+      dataIndex: "medicine.name",
+      key: "medicine.name",
       width: 100
     },
     {
       title: "Số lượng",
-      dataIndex: "servicesExamination.serviceName",
-      key: "servicesExamination.serviceName",
+      dataIndex: "quantity",
+      key: "quantity",
       width: 100
     },
     {
       title: "Cách dùng",
-      dataIndex: "servicesExamination.serviceName",
-      key: "servicesExamination.serviceName",
+      dataIndex: "usage",
+      key: "usage",
       width: 100
     },
     {
       title: "Đơn giá",
-      dataIndex: "servicesExamination.price",
-      key: "servicesExamination.price",
-      render: (text, record: any) => formatPrice(record.servicesExamination.price, "VND"),
-      width: 50
+      dataIndex: "medicine.price",
+      key: "medicine.price",
+      render: (text, record: any) => formatPrice(record.medicine.price, "VND"),
+      width: 100
+    },
+    {
+      title: "",
+      className: "text-right",
+      width: 10,
+      render: (text, record) => (
+        <Popconfirm title="Bạn có muốn xoá" okText="Có" cancelText="Không" onConfirm={() => this.deletePrescriptionDetails(record)}
+        >
+          <a href="#">Xoá</a>
+        </Popconfirm>
+      ),
     }
   ];
 
@@ -54,40 +67,45 @@ class PresciptionContainer extends React.Component<Props & FormComponentProps> {
 
   state = {
     listPrescriptionDetails: [],
-    prescription: null,   // don thuoc
+    prescription: {},   // don thuoc
     listServices: [],
-    isLoading: false
+    isLoading: false,
+    isOpenAddMedicine: false,
+    listMedicine: [],
+    isLoadingCreate: false
   };
 
   componentDidMount() {
-    this.getMedicallBill();
+    this.getPresciption();
+    this.getListMedicine();
   }
 
-  getMedicallBill = () => {
+  getPresciption = () => {
     const { caseRecordInfo } = this.props;
     if (isEmpty(caseRecordInfo)) { return; }
     this.setState({ isLoading: true }, () => {
-      this.caseRecordApi.getMedicalBillByCaseRecord(caseRecordInfo.id).toPromise().then((data: any) => {
+      this.caseRecordApi.getPrescriptionByCaseRecord(caseRecordInfo.id).toPromise().then((data: any) => {
         this.setState({ isLoading: false, prescription: data.result });
         if (data.result === null) {
-          this.createMedicalBill();
+          this.createPresciption();
         }
-        this.getListMedicalBillDetails();
+        this.getListPresciptionDetails();
       });
     });
   }
 
-  createMedicalBill = () => {
+  createPresciption = () => {
     const { caseRecordInfo } = this.props;
     let request = {
       clinicId: get(caseRecordInfo, "user.clinicId"),
       userId: get(caseRecordInfo, "userId"),
-      caseRecordId: get(caseRecordInfo, "id")
+      caseRecordId: get(caseRecordInfo, "id"),
+      createAt: get(caseRecordInfo, "createAt")
     };
-    this.caseRecordApi.createMedicalBill(request).toPromise();
+    this.caseRecordApi.createPrescription(request).toPromise();
   }
 
-  updateMedicalBill = () => {
+  updatePresciption = () => {
     const { getFieldDecorator } = this.props.form;
     const { caseRecordInfo } = this.props;
     const { prescription } = this.state;
@@ -120,73 +138,69 @@ class PresciptionContainer extends React.Component<Props & FormComponentProps> {
     );
   }
 
-  renderTableSubclinicResult = () => {
-    const { prescription } = this.state;
+  renderTablePrescriptionDetails = () => {
+    const { listPrescriptionDetails } = this.state;
     return (
       <Table
         className="mb-30 mt-20 tableCaseRecord"
         columns={this.columns}
-        dataSource={prescription}
-        rowKey="id"
+        dataSource={listPrescriptionDetails}
+        rowKey="index"
         pagination={false}
       />
     );
 
   }
 
-  getListMedicalBillDetails = () => {
+  getListPresciptionDetails = () => {
     const { prescription } = this.state;
     let prescriptionId = get(prescription, "id") || 0;
     if (isEmpty(prescription)) { return; }
     this.setState({ isLoading: true }, () => {
-      this.caseRecordApi.getListMedicalBillDetails(prescriptionId).toPromise().then((data: any) => {
+      this.caseRecordApi.getListPrescriptionDetails(prescriptionId).toPromise().then((data: any) => {
         this.setState({ isLoading: false });
         if (data && data.hasErrors) {
           toastr.error(ERROR, data.Errors[0].message);
         } else {
-          this.setState({ prescription: data.result });
+          this.setState({ listPrescriptionDetails: data.result });
         }
       });
     });
   }
 
-  onCreateMedicalBillDetail = () => {
+  onCreatePresciptionDetail = value => {
     const { prescription } = this.state;
-    const form = this.props.form;
-    form.validateFields((err, values) => {
-      if (err) {
-        return;
-      }
-      let request = {
-        servicesExaminationId: values.servicesExaminationId,
-        prescriptionId: get(prescription, "id")
-      };
-
-      this.caseRecordApi.createMedicalBillDetails(request).toPromise().then((data: any) => {
+    const request = { ...value, prescriptionId: get(prescription, "id") };
+    this.setState({ isLoadingCreate: true }, () => {
+      this.caseRecordApi.createPrescriptionDetails(request).toPromise().then((data: any
+      ) => {
         if (data.response && data.response.hasErrors) {
-          toastr.error(ERROR);
+          toastr.error(ERROR, "Tạo mới không thành công");
         } else {
-          this.getListMedicalBillDetails();
+          this.setState({ isOpenAddMedicine: false, isLoadingCreate: false });
+          toastr.success(SUCCESS, "Tạo mới thành công");
+          this.getListPresciptionDetails();
         }
+
       });
     });
   }
 
-  onUpdateMedicalBill = () => {
+  onUpdatePresciption = () => {
     const { prescription } = this.state;
     const form = this.props.form;
     form.validateFields((err, values) => {
       let request = {
-        diagnostic: values.diagnostic,
+        name: values.name,
         id: get(prescription, "id")
       };
       this.setState({ isLoading: true }, () => {
-        this.caseRecordApi.updateMedicalBill(request).toPromise().then((data: any) => {
+        this.caseRecordApi.updatePrescription(request).toPromise().then((data: any) => {
           if (data.response && data.response.hasErrors) {
             toastr.error(ERROR);
           } else {
             this.setState({ isLoading: false });
-            toastr.success(SUCCESS, "Cập nhật kết quả khám thành công");
+            toastr.success(SUCCESS, "Cập nhật đơn thuốc thành công");
           }
 
         });
@@ -198,15 +212,29 @@ class PresciptionContainer extends React.Component<Props & FormComponentProps> {
     // 
   }
 
+  getListMedicine = () => {
+    this.caseRecordApi.getListMedicine().toPromise().then((data: any) => {
+      this.setState({ listMedicine: data.result });
+    });
+  }
+
+  showModalAddMedicine = () => {
+    this.setState({ isOpenAddMedicine: true });
+  }
+
+  closeModalAddMedicine = () => {
+    this.setState({ isOpenAddMedicine: false });
+  }
+
   renderButton = () => {
     const { prescription } = this.state;
     return (
       <div className="text-center">
-        <Button type="primary" className="mr-20" onClick={this.onUpdateMedicalBill} disabled={isEmpty(prescription)}>
+        <Button type="primary" className="mr-20" onClick={this.onUpdatePresciption} disabled={isEmpty(prescription)}>
           Lưu đơn thuốc
         </Button>
 
-        <Button type="primary" className="mr-20" onClick={this.onCreateMedicalBillDetail} disabled={isEmpty(prescription)}>
+        <Button type="primary" className="mr-20" onClick={this.showModalAddMedicine} disabled={isEmpty(prescription)}>
           Thêm thuốc
         </Button>
 
@@ -215,21 +243,36 @@ class PresciptionContainer extends React.Component<Props & FormComponentProps> {
         </Button>
       </div>
     );
+  }
 
+  deletePrescriptionDetails = (record) => {
+    this.caseRecordApi.deletePrescriptionDetails(record.prescriptionId, record.medicineId).toPromise().then((data: any) => {
+      this.getListPresciptionDetails();
+    });
   }
 
   render() {
-    const { isLoading } = this.state;
+    const { isLoading, isOpenAddMedicine, prescription, listMedicine, isLoadingCreate } = this.state;
     return (
       <Spin size="large" spinning={isLoading}>
         <div className="card-statistics h-100 card">
           <div className="container">
             <div className="cardTitle">Chi tiết đơn thuốc</div>
-            {this.updateMedicalBill()}
-            {this.renderTableSubclinicResult()}
+            {this.updatePresciption()}
+            {this.renderTablePrescriptionDetails()}
             {this.renderButton()}
           </div>
         </div>
+        {isOpenAddMedicine && (
+          <AddMedicineModal
+            isOpenModal={isOpenAddMedicine}
+            isLoading={isLoadingCreate}
+            closeModal={this.closeModalAddMedicine}
+            prescriptionInfo={prescription}
+            listMedicine={listMedicine}
+            saveAction={this.onCreatePresciptionDetail}
+          />
+        )}
       </Spin>
     );
   }

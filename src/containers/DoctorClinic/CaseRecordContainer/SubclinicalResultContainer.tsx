@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Select, Button, Spin } from "antd";
+import { Form, Input, Select, Button, Spin, Popconfirm } from "antd";
 import { FormComponentProps } from "antd/lib/form";
 import Table, { ColumnProps } from "antd/lib/table";
 import TextArea from "antd/lib/input/TextArea";
@@ -46,7 +46,18 @@ class SubclinicalResultContainer extends React.Component<Props & FormComponentPr
       dataIndex: "servicesExamination.price",
       key: "servicesExamination.price",
       render: (text, record: any) => formatPrice(record.servicesExamination.price, "VND"),
-      width: 50
+      width: 100
+    },
+    {
+      title: "",
+      className: "text-right",
+      width: 10,
+      render: (text, record) => (
+        <Popconfirm title="Bạn có muốn xoá" okText="Có" cancelText="Không" onConfirm={() => this.deleteSubclinicalResult(record)}
+        >
+          <a href="#">Xoá</a>
+        </Popconfirm>
+      ),
     }
   ];
 
@@ -160,7 +171,7 @@ class SubclinicalResultContainer extends React.Component<Props & FormComponentPr
         className="mb-30 mt-20 tableCaseRecord"
         columns={this.columns}
         dataSource={listSubclinicalResult}
-        rowKey="id"
+        rowKey="index"
         pagination={false}
       />
     );
@@ -214,6 +225,12 @@ class SubclinicalResultContainer extends React.Component<Props & FormComponentPr
 
   onExportResult = () => {
     // 
+  }
+
+  deleteSubclinicalResult = (record) => {
+    this.caseRecordApi.deleteSubclinicalResult(record.id).toPromise().then((data: any) => {
+      this.getListSubclinicalResult();
+    });
   }
 
   renderButton = () => {

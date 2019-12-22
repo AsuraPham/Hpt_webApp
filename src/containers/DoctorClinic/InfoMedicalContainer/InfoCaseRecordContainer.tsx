@@ -38,7 +38,7 @@ export default class InfoCaseRecordContainer extends React.Component<Props, any>
             <TabPane tab={<span><i className="fa fa-home"></i> Phiếu khám bệnh</span>} key="1" >
               <MedicalBillContainer caseRecordInfo={caseRecordInfo} key={get(caseRecordInfo, "id")} />
             </TabPane>
-            <TabPane tab={<span><i className="fa fa-user"></i> Khám cận lâm sàn</span>} key="2">
+            <TabPane tab={<span><i className="fa fa-user"></i> Khám cận lâm sàng</span>} key="2">
               <SubclinicalResultContainer caseRecordInfo={caseRecordInfo} key={get(caseRecordInfo, "id")} />
             </TabPane>
 

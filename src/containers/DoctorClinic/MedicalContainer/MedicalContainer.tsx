@@ -62,7 +62,9 @@ export default class MedicalContainer extends React.Component<Props, any> {
       title: "",
       width: 50,
       render: (text, record) => (
-        <Button key={text} onClick={() => { this.addRecord(record); }}>Khám</Button>
+        <Button key={text} style={{ width: "unset" }}
+          type={record.status === 0 ? "primary" : "danger"} onClick={() => { this.addRecord(record); }}>
+          {record.status === 0 ? "Khám" : "Đang Khám"}</Button>
       ),
     }
   ];

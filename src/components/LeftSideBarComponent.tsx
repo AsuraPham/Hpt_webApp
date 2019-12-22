@@ -23,6 +23,7 @@ import {
   PRESCRIPTION
 } from "../common/const/menu";
 import "./leftSideBar.css";
+import { Icon } from "antd";
 
 export default class LeftSideBarComponent extends React.Component {
 
@@ -59,7 +60,7 @@ export default class LeftSideBarComponent extends React.Component {
                     <li>
                       <NavLink to={STATIC_ROUTE.PENDING_MEDICAL}>
                         <i className="ti-home">
-                          <img className="imageIcon" src={iconDeparment} />
+                          <Icon type="solution" />
                         </i>
                         <span className="right-nav-text">{PENDING_MEDICAL}</span>
                       </NavLink>
@@ -71,7 +72,7 @@ export default class LeftSideBarComponent extends React.Component {
                   <li>
                     <NavLink to={STATIC_ROUTE.DOCTOR_MEDICAL} aria-current={true}>
                       <i className="ti-home">
-                        <img src={iconPack} />
+                        <Icon type="medicine-box" />
                       </i>
                       <span className="right-nav-text">{MEDICAL}</span>
                     </NavLink>
@@ -81,7 +82,7 @@ export default class LeftSideBarComponent extends React.Component {
                 <li>
                   <NavLink to={STATIC_ROUTE.PATIENT}>
                     <i className="ti-home">
-                      <img src={iconPack} />
+                      <Icon type="team" />
                     </i>
                     <span className="right-nav-text">{PATIENT}</span>
                   </NavLink>
@@ -100,7 +101,7 @@ export default class LeftSideBarComponent extends React.Component {
                     <li>
                       <NavLink to={STATIC_ROUTE.PRESCRIPTION}>
                         <i className="ti-home">
-                          <img src={iconPack} />
+                          <Icon type="file-done" />
                         </i>
                         <span className="right-nav-text">{PRESCRIPTION}</span>
                       </NavLink>
