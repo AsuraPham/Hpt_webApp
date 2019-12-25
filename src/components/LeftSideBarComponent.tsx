@@ -39,14 +39,14 @@ export default class LeftSideBarComponent extends React.Component {
           <div className="scrollarea-content saidbar" style={{ margin: 0 }}>
             <div className="saidbar">
               <ul className="nav navbar-nav side-menu" id="sidebarnav">
-                <li>
+                {/* <li>
                   <NavLink to={STATIC_ROUTE.HOME} aria-current={true}>
                     <i className="ti-home">
                       <img src={iconDashboard} />
                     </i>
                     <span className="right-nav-text">{DASHBOARD}</span>
                   </NavLink>
-                </li>
+                </li> */}
                 {accountInfo.roleName === ROLE.RECEPTIONIST && (
                   <>
                     <li>
@@ -88,7 +88,7 @@ export default class LeftSideBarComponent extends React.Component {
                   </NavLink>
                 </li>
 
-                {accountInfo.roleName === ROLE.PHARMACIST || accountInfo.roleName === ROLE.DOCTORCLINIC && (
+                {(accountInfo.roleName === ROLE.PHARMACIST || accountInfo.roleName === ROLE.DOCTORCLINIC) && (
                   <>
                     <li>
                       <NavLink to={STATIC_ROUTE.MEDICINE}>

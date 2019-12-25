@@ -21,25 +21,25 @@ class SubclinicalResultContainer extends React.Component<Props & FormComponentPr
       title: "STT",
       key: "index",
       render: (text, record, index) => index + 1,
-      width: 5
+      width: 60
     },
     {
       title: "Tên yêu cầu",
       dataIndex: "servicesExamination.serviceName",
       key: "servicesExamination.serviceName",
-      width: 100
+      width: 150
     },
     {
       title: "Kết quả",
       dataIndex: "result",
       key: "result",
-      width: 100
+      width: 150
     },
     {
       title: "Kết luận",
       dataIndex: "conclusion",
       key: "conclusion",
-      width: 100
+      width: 150
     },
     {
       title: "Đơn giá",
@@ -51,7 +51,7 @@ class SubclinicalResultContainer extends React.Component<Props & FormComponentPr
     {
       title: "",
       className: "text-right",
-      width: 10,
+      width: 100,
       render: (text, record) => (
         <Popconfirm title="Bạn có muốn xoá" okText="Có" cancelText="Không" onConfirm={() => this.deleteSubclinicalResult(record)}
         >
@@ -173,6 +173,7 @@ class SubclinicalResultContainer extends React.Component<Props & FormComponentPr
         dataSource={listSubclinicalResult}
         rowKey="index"
         pagination={false}
+        scroll={{ x: "max-content" }}
       />
     );
 
@@ -238,17 +239,17 @@ class SubclinicalResultContainer extends React.Component<Props & FormComponentPr
     const { caseRecordInfo } = this.props;
     return (
       <div className="text-center">
-        <Button type="primary" className="mr-20" onClick={this.onUpdate} disabled={isEmpty(subclinicSelected)}>
+        <Button type="primary" className="mr-20" onClick={this.onUpdate} >
           Cập nhật kết quả CLS
         </Button>
 
-        <Button type="primary" className="mr-20" onClick={this.onCreate} disabled={isEmpty(caseRecordInfo)}>
+        <Button type="primary" className="mr-20" onClick={this.onCreate} >
           Thêm kết quả CLS
         </Button>
-
+        {/* 
         <Button type="primary" onClick={this.onExportResult} disabled={isEmpty(listSubclinicalResult)}>
           Xuất kết quả
-        </Button>
+        </Button> */}
       </div>
     );
 

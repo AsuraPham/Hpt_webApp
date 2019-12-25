@@ -1,6 +1,5 @@
 import * as React from "react";
 import "../Login/Login.css";
-// import { signIn } from "../../common/const/image-const";
 import Form, { FormComponentProps } from "antd/lib/form";
 import { ACCOUNT_INFO, TOKEN_KEY, STATIC_ROUTE } from "../../common/Constants";
 import ReduxToastr from "react-redux-toastr";
@@ -21,7 +20,7 @@ class SignInComponent extends React.Component<Props & FormComponentProps> {
   }
 
   routeChange = () => {
-    this.props.history.push(STATIC_ROUTE.HOME);
+    this.props.history.push(STATIC_ROUTE.PATIENT);
   }
 
   userApi = new SignInService();
@@ -59,7 +58,6 @@ class SignInComponent extends React.Component<Props & FormComponentProps> {
           transitionIn="fadeIn"
           transitionOut="fadeOut"
         />
-        {/* <img className="img" src={signIn} alt="" /> */}
         <Form onSubmit={this.handleSubmit} className="form-signin">
           <h4>Đăng nhập vào hệ thống</h4>
           <Form.Item>
@@ -85,7 +83,7 @@ class SignInComponent extends React.Component<Props & FormComponentProps> {
             )}
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" className="login-form-button" style={{ marginTop: 20 }}>
+            <Button type="primary" htmlType="submit" className="login-form-button" style={{ marginTop: 20, width: 200 }}>
               Đăng nhập
             </Button>
           </Form.Item>

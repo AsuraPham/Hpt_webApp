@@ -21,25 +21,25 @@ class MedicalBillContainer extends React.Component<Props & FormComponentProps> {
       title: "STT",
       key: "index",
       render: (text, record, index) => index + 1,
-      width: 5
+      width: 60
     },
     {
       title: "Tên dịch vụ",
       dataIndex: "servicesExamination.serviceName",
       key: "servicesExamination.serviceName",
-      width: 100
+      width: 150
     },
     {
       title: "Đơn giá",
       dataIndex: "servicesExamination.price",
       key: "servicesExamination.price",
       render: (text, record: any) => formatPrice(record.servicesExamination.price, "VND"),
-      width: 50
+      width: 100
     },
     {
       title: "",
       className: "text-right",
-      width: 10,
+      width: 100,
       render: (text, record) => (
         <Popconfirm title="Bạn có muốn xoá" okText="Có" cancelText="Không" onConfirm={() => this.deleteMedicalBillDetails(record)}
         >
@@ -95,6 +95,7 @@ class MedicalBillContainer extends React.Component<Props & FormComponentProps> {
       caseRecordId: get(caseRecordInfo, "id")
     };
     this.caseRecordApi.createMedicalBill(request).toPromise();
+    this.getMedicallBill();
   }
 
   updateMedicalBill = () => {
@@ -164,6 +165,7 @@ class MedicalBillContainer extends React.Component<Props & FormComponentProps> {
         dataSource={listMedicalBillDetails}
         rowKey="index"
         pagination={false}
+        scroll={{ x: "max-content" }}
       />
     );
 
@@ -237,17 +239,17 @@ class MedicalBillContainer extends React.Component<Props & FormComponentProps> {
     const { medicalBill } = this.state;
     return (
       <div className="text-center">
-        <Button type="primary" className="mr-20" onClick={this.onUpdateMedicalBill} disabled={isEmpty(medicalBill)}>
+        <Button type="primary" className="mr-20" onClick={this.onUpdateMedicalBill}>
           Lưu kết quả khám
         </Button>
 
-        <Button type="primary" className="mr-20" onClick={this.onCreateMedicalBillDetail} disabled={isEmpty(medicalBill)}>
+        <Button type="primary" className="mr-20" onClick={this.onCreateMedicalBillDetail}>
           Thêm dịch vụ khám
         </Button>
 
-        <Button type="primary" onClick={this.onExportResult} disabled={isEmpty(medicalBill)}>
+        {/* <Button type="primary" onClick={this.onExportResult} disabled={isEmpty(medicalBill)}>
           Xuất phiếu khám
-        </Button>
+        </Button> */}
       </div>
     );
   }

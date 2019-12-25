@@ -52,7 +52,7 @@
     display: none;
 }
 .ant-btn-primary{    
-    width: 215px;
+    width: unset;
     background-color: #29a8ff;
     border-color: #29a8ff;
 }
@@ -109,4 +109,9 @@ table{
 .ant-modal-confirm-btns .ant-btn {
     width: unset;
     border-radius: 5px;
+}
+
+.ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+    padding-right: 5px;
+    padding-left: 5px;
 }

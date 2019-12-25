@@ -14,9 +14,9 @@ interface Props {
 export default class InfoCaseRecordContainer extends React.Component<Props, any> {
   componentDidMount() {
     const { caseRecordInfo } = this.props;
-    if (isEmpty(caseRecordInfo)) {
-      this.openNotificationWithIcon("warning");
-    }
+    // if (isEmpty(caseRecordInfo)) {
+    //   this.openNotificationWithIcon("warning");
+    // }
   }
 
   openNotificationWithIcon = type => {

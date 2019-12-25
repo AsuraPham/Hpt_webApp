@@ -23,13 +23,13 @@ class PresciptionContainer extends React.Component<Props & FormComponentProps> {
       title: "STT",
       key: "index",
       render: (text, record, index) => index + 1,
-      width: 5
+      width: 60
     },
     {
       title: "Tên thuốc",
       dataIndex: "medicine.name",
       key: "medicine.name",
-      width: 100
+      width: 150
     },
     {
       title: "Số lượng",
@@ -41,7 +41,7 @@ class PresciptionContainer extends React.Component<Props & FormComponentProps> {
       title: "Cách dùng",
       dataIndex: "usage",
       key: "usage",
-      width: 100
+      width: 150
     },
     {
       title: "Đơn giá",
@@ -53,7 +53,7 @@ class PresciptionContainer extends React.Component<Props & FormComponentProps> {
     {
       title: "",
       className: "text-right",
-      width: 10,
+      width: 100,
       render: (text, record) => (
         <Popconfirm title="Bạn có muốn xoá" okText="Có" cancelText="Không" onConfirm={() => this.deletePrescriptionDetails(record)}
         >
@@ -100,7 +100,7 @@ class PresciptionContainer extends React.Component<Props & FormComponentProps> {
       clinicId: get(caseRecordInfo, "user.clinicId"),
       userId: get(caseRecordInfo, "userId"),
       caseRecordId: get(caseRecordInfo, "id"),
-      createAt: get(caseRecordInfo, "createAt")
+      createdAt: get(caseRecordInfo, "createAt")
     };
     this.caseRecordApi.createPrescription(request).toPromise();
   }
@@ -147,6 +147,7 @@ class PresciptionContainer extends React.Component<Props & FormComponentProps> {
         dataSource={listPrescriptionDetails}
         rowKey="index"
         pagination={false}
+        scroll={{ x: "max-content" }}
       />
     );
 
@@ -230,17 +231,17 @@ class PresciptionContainer extends React.Component<Props & FormComponentProps> {
     const { prescription } = this.state;
     return (
       <div className="text-center">
-        <Button type="primary" className="mr-20" onClick={this.onUpdatePresciption} disabled={isEmpty(prescription)}>
+        <Button type="primary" className="mr-20" onClick={this.onUpdatePresciption}>
           Lưu đơn thuốc
         </Button>
 
-        <Button type="primary" className="mr-20" onClick={this.showModalAddMedicine} disabled={isEmpty(prescription)}>
+        <Button type="primary" className="mr-20" onClick={this.showModalAddMedicine}>
           Thêm thuốc
         </Button>
 
-        <Button type="primary" onClick={this.onExportResult} disabled={isEmpty(prescription)}>
+        {/* <Button type="primary" onClick={this.onExportResult} disabled={isEmpty(prescription)}>
           Xuất đơn thuốc
-        </Button>
+        </Button> */}
       </div>
     );
   }

@@ -64,6 +64,9 @@ class CreatePatientModalComponent extends React.Component<
     };
 
     const config = {
+      rules: [{ type: "object", required: false, message: SELECT_DATE }]
+    };
+    const config1 = {
       rules: [{ type: "object", required: true, message: SELECT_DATE }]
     };
 
@@ -100,7 +103,7 @@ class CreatePatientModalComponent extends React.Component<
             </Form.Item>
 
             <Form.Item label="Ngày sinh">
-              {getFieldDecorator("dateOfBirth", config)(
+              {getFieldDecorator("dateOfBirth", config1)(
                 <DatePicker
                   placeholder="Chọn ngày sinh"
                   format={DEFAULT_DATE_FORMAT}
@@ -110,7 +113,7 @@ class CreatePatientModalComponent extends React.Component<
 
             <Form.Item label="Mã BHYT">
               {getFieldDecorator("codeHealthInsurance", {
-                rules: [{ required: true, message: REQUIRED }]
+                rules: [{ required: false, message: REQUIRED }]
               })(<Input placeholder="Nhập mã bảo hiểm y tế" />)}
             </Form.Item>
 

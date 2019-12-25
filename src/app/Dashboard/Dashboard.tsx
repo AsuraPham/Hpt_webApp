@@ -17,7 +17,7 @@ export default class Dashboard extends React.Component {
         <div className="row">
           <div className="mb-30 col-md-4">
             <div className="card-statistics h-100 card">
-              <div className="card-body"><div className="clearfix">
+              <div className="card-body" style={{ padding: "1.25rem" }}><div className="clearfix">
                 <div className="float-left">
                   <img className="mt-20 ml-20 mb-10" src={userDashboard} />
                 </div>
@@ -30,7 +30,7 @@ export default class Dashboard extends React.Component {
           </div>
           <div className="mb-30 col-md-4">
             <div className="card-statistics h-100 card">
-              <div className="card-body"><div className="clearfix">
+              <div className="card-body" style={{ padding: "1.25rem" }}><div className="clearfix">
                 <div className="float-left">
                   <img className="mt-20 ml-20 mb-10" src={cloud} />
                 </div>
@@ -43,7 +43,7 @@ export default class Dashboard extends React.Component {
           </div>
           <div className="mb-30 col-md-4">
             <div className="card-statistics h-100 card">
-              <div className="card-body"><div className="clearfix">
+              <div className="card-body" style={{ padding: "1.25rem" }}><div className="clearfix">
                 <div className="float-left">
                   <img className="mt-20 ml-20 mb-10" src={userDashboard} />
                 </div>

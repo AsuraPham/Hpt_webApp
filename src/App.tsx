@@ -29,7 +29,7 @@ class App extends React.Component {
 
     return (
       <Switch>
-        <PrivateRoute path={STATIC_ROUTE.HOME} component={Dashboard} />
+        {/* <PrivateRoute path={STATIC_ROUTE.HOME} component={Dashboard} /> */}
         {/* new vesion */}
         <PrivateRoute path={STATIC_ROUTE.PATIENT} component={Patient} />
         <PrivateRoute path={STATIC_ROUTE.MEDICINE} component={Medicine} />

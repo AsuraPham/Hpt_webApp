@@ -39,26 +39,26 @@ export default class PatientListComponent extends React.Component<Props, any> {
       dataIndex: "id",
       sorter: true,
       key: "id",
-      width: 100
+      width: 90
     },
     {
       title: "Họ tên",
       dataIndex: "fullName",
       key: "fullName",
       sorter: true,
-      width: 300
+      width: 150
     },
     {
       title: "Chứng minh thư",
       dataIndex: "idCard",
       key: "idCard",
-      width: 200
+      width: 120
     },
     {
       title: "Dân tộc",
       dataIndex: "folk",
       key: "folk",
-      width: 150
+      width: 100
     },
     {
       title: "Giới tính",
@@ -71,33 +71,33 @@ export default class PatientListComponent extends React.Component<Props, any> {
       dataIndex: "dateOfBirth",
       render: (text, record: any) => dateFormat(record.dateOfBirth),
       key: "dateOfBirth",
-      width: 200
+      width: 120
     },
     {
       title: "Mã BHYT",
       dataIndex: "codeHealthInsurance",
       key: "codeHealthInsurance",
-      width: 150
+      width: 180
     },
     {
       title: "Ngày cấp BHYT",
       dataIndex: "dateOfSupplyHealth",
       render: (text, record: any) => dateFormat(record.dateOfSupplyHealth),
       key: "dateOfSupplyHealth",
-      width: 200
+      width: 120
     },
     {
       title: "Ngày hết hạn BHYT",
       dataIndex: "expirationDateHealth",
       render: (text, record: any) => dateFormat(record.expirationDateHealth),
       key: "expirationDateHealth",
-      width: 200
+      width: 120
     },
     {
       title: "Địa chỉ",
       dataIndex: "address",
       key: "address",
-      width: 300
+      width: 150
     },
     {
       title: "Nghề nghiệp",
@@ -109,13 +109,13 @@ export default class PatientListComponent extends React.Component<Props, any> {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      width: 200
+      width: 120
     },
     {
       title: "Số ĐT",
       dataIndex: "phone",
       key: "phone",
-      width: 200
+      width: 120
     },
     {
       title: "Nhóm máu",
@@ -251,7 +251,7 @@ export default class PatientListComponent extends React.Component<Props, any> {
                 pagination={pagination}
                 onChange={handleTableChange}
                 rowKey="id"
-                scroll={{ x: 1600 }}
+                scroll={{ x: "max-content" }}
               />
             </div>
           </div>

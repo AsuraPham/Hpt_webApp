@@ -97,7 +97,7 @@ class CreateUserModalComponent extends React.Component<
             </Form.Item>
 
             <Form.Item label="Ngày sinh">
-              {getFieldDecorator("dateOfBirth", config)(
+              {getFieldDecorator("dateDateOfBirth", config)(
                 <DatePicker
                   placeholder="Chọn ngày sinh"
                   format={DEFAULT_DATE_FORMAT}

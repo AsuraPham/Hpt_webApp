@@ -29,14 +29,14 @@ export default class MedicineistComponent extends React.Component<Props, any> {
       dataIndex: "id",
       key: "id",
       sorter: true,
-      width: 100
+      width: 80
     },
     {
       title: "Tên thuốc",
       dataIndex: "name",
       key: "name",
       sorter: true,
-      width: 300
+      width: 150
     },
     {
       title: "Đơn giá",
@@ -156,6 +156,7 @@ export default class MedicineistComponent extends React.Component<Props, any> {
                 pagination={pagination}
                 onChange={handleTableChange}
                 rowKey="id"
+                scroll={{ x: "max-content" }}
               />
             </div>
           </div>
