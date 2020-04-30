@@ -25,7 +25,7 @@
     "env-cmd": "^8.0.1",
     "font-awesome": "^4.7.0",
     "html-react-parser": "^0.4.6",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.5",
     "moment": "^2.22.2",
     "node-sass": "^4.13.0",
